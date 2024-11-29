@@ -1,0 +1,31 @@
+<section id="{name}" class="picture-gallery">
+    <div class="overlay">
+        <div id="prev-arrow" class="arrow prev-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+                <path d="M15 19l-7-7 7-7"/>
+            </svg>
+        </div>
+        <div id="next-arrow" class="arrow next-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+                <path d="M9 19l7-7-7-7"/>
+            </svg>
+        </div>
+    </div>
+    <span id="{name}-close-btn" class="close-btn">&times;</span>
+    <!-- BLOCK pictureBlock -->
+    {pictureBox}
+    <!-- END pictureBlock -->
+
+    <!-- BLOCK uploadBlock -->
+    <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post">
+        <label for="images">Bilder auswählen:</label>
+        <input type="file" id="images" name="images[]" accept="image/*" multiple>
+        <input type="submit" value="Bilder hochladen">
+    </form>
+    <!-- END uploadBlock -->
+
+    <!-- BLOCK galleryErrorBlock -->
+    <span class="errorTitle">Fehler:</span>
+    <span class="error">Verzeichnis <i>"{baseDirectoryValue}"</i> nicht gefunden!</span>
+    <!-- END galleryErrorBlock -->
+</section>

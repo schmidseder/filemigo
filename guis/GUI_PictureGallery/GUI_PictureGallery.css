@@ -1,0 +1,90 @@
+section.picture-gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+section.picture-gallery > span.errorTitle {
+    font-style: italic;
+    margin-right: 5px;
+}
+section.picture-gallery > span.error {
+    color: crimson;
+    font-weight: bold;
+}
+
+section.picture-gallery > div.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+section.picture-gallery > div.overlay > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+section.picture-gallery > span.close-btn {
+    display: none;
+    color: white;
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+section.picture-gallery > div.overlay > div.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2vw; /* Größe der Pfeile basierend auf der Breite des Viewports */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 4vw; /* Breite des Pfeils als Prozentsatz der Viewport-Breite */
+    height: 4vw; /* Höhe des Pfeils als Prozentsatz der Viewport-Breite */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    user-select: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+section.picture-gallery > div.overlay > div.arrow:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;  
+}
+
+section.picture-gallery > div.overlay >#prev-arrow {
+    left: 1.5vw;
+}
+
+section.picture-gallery > div.overlay >#next-arrow {
+    right: 1.5vw;
+}
+
+/* Media Queries für sehr kleine Bildschirme */
+@media (max-width: 768px) {
+    section.picture-gallery > div.overlay > div.arrow {
+        font-size: 3vw; /* Kleinere Schriftgröße für kleinere Bildschirme */
+        width: 5vw; /* Kleinere Breite für kleinere Bildschirme */
+        height: 5vw; /* Kleinere Höhe für kleinere Bildschirme */
+    }
+}
+
+@media (max-width: 480px) {
+    section.picture-gallery > div.overlay > div.arrow {
+        font-size: 4vw; /* Noch kleinere Schriftgröße für sehr kleine Bildschirme */
+        width: 6vw; /* Noch kleinere Breite für sehr kleine Bildschirme */
+        height: 6vw; /* Noch kleinere Höhe für sehr kleine Bildschirme */
+    }
+}
