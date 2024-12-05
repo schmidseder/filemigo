@@ -27,6 +27,8 @@ class GUI_Frame extends GUI_CustomFrame
         $appJS = $this->Weblication->findJavaScript('app.js');
         $this->addScriptFileAtTheEnd($appJS);
 
+        $this->getHeadData()->addStyleSheet('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
         return $this;
     }
 

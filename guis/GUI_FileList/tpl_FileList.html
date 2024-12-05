@@ -4,6 +4,9 @@
     <table>
         <thead>
         <tr>
+            <th scope="col">
+                <span class="material-symbols-outlined">keyboard_return</span>
+            </th>
             <th scope="col">Dateiname</th>
             <th scope="col">Typ</th>
             <th scope="col">Änderungsdatum</th>
@@ -13,7 +16,15 @@
         <tbody>
         <!-- BLOCK fileblock -->
         <tr>
-            <th scope="row"><a href="{url}" target="{target}">{filename}</a></th>
+
+            <th scope="row">
+                <a href="{url}" target="{target}">
+                    <span class="material-symbols-outlined" style="color:{color}">{type_name}</span>
+                </a>
+            </th>
+            <td>
+                <a href="{url}" target="{target}">{filename}</a>
+            </td>
             <td>{type}</td>
             <td>{modified}</td>
             <td>{created}</td>
@@ -26,9 +37,8 @@
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
         </tr>
         </tfoot>
     </table>
-
 </div>
-

@@ -10,6 +10,20 @@ use pool\classes\Core\Url;
 
 class GUI_FileList extends GUI_Module
 {
+
+    protected array $icons = [
+        'PDF'           => [ 'type_name' => 'picture_as_pdf', 'color' => 'red' ],
+        'EXCEL'         => [ 'type_name' => 'grid_on', 'color' => 'green' ],
+        'WORD'          => [ 'type_name' => 'description', 'color' => 'blue' ],
+        'TEXT'          => [ 'type_name' => 'text_snippet', 'color' => 'gray' ],
+        'DIRECTORY'     => [ 'type_name' => 'folder', 'color' => 'gold' ],
+        'HELP'          => [ 'type_name' => 'help_outline', 'color' => 'blue' ],
+        'EMPTY'         => [ 'type_name' => 'hourglass_empty', 'color' => 'lightgray' ],
+        'README'        => [ 'type_name' => 'info', 'color' => 'cornflowerblue' ],
+        'ARTICLE'       => [ 'type_name' => 'article', 'color' => 'darkgray' ],
+        'IMAGE'         => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
+        'ANIMATION'     => [ 'type_name' => 'animation', 'color' => 'purple' ]
+    ];
     /**
      * Attributes for the script tag of the assoziated javascript file/class for this module.
      *
@@ -164,6 +178,8 @@ class GUI_FileList extends GUI_Module
                 //'finfo_mime' => $finfo_mime,
                 'type' => $type,
             ];
+
+            $infos = [...$infos, ...$this->icons[$type]];
 
             $this->Template->newBlock('fileblock');
 
