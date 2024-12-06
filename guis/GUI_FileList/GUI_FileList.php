@@ -22,7 +22,9 @@ class GUI_FileList extends GUI_Module
         'EMPTY'         => [ 'type_name' => 'hourglass_empty', 'color' => 'lightgray' ],
         'README'        => [ 'type_name' => 'info', 'color' => 'cornflowerblue' ],
         'ARTICLE'       => [ 'type_name' => 'article', 'color' => 'darkgray' ],
-        'IMAGE'         => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
+        'JPEG'          => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
+        'GIF'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
+        'PNG'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
         'ANIMATION'     => [ 'type_name' => 'animation', 'color' => 'purple' ]
     ];
     /**
@@ -136,6 +138,12 @@ class GUI_FileList extends GUI_Module
         if ($isFile) {
             $this->openFile($path);
             $this->disable();
+        }
+
+        $isSubDirectory = str_starts_with($path, DIRECTORY_SEPARATOR) && strlen($path) > 1;
+        if ($isSubDirectory) {
+            $this->Template->newBlock('isSubDirectory');
+            $this->Template->leaveBlock();
         }
 
         $this->Template->setVar('path', $path);
