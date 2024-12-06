@@ -143,6 +143,17 @@ class GUI_FileList extends GUI_Module
         $isSubDirectory = str_starts_with($path, DIRECTORY_SEPARATOR) && strlen($path) > 1;
         if ($isSubDirectory) {
             $this->Template->newBlock('isSubDirectory');
+
+            $pieces = explode(DIRECTORY_SEPARATOR, $path);
+            array_pop($pieces);
+            $parentDirectory = implode(DIRECTORY_SEPARATOR, $pieces);
+            if (!$parentDirectory) {
+                $parentDirectory = DIRECTORY_SEPARATOR;
+            }
+
+            $parentUrl = new Url();
+            $parentUrl->setParam('path', $parentDirectory);
+            $this->Template->setVar('parentUrl', $parentUrl->getUrl());
             $this->Template->leaveBlock();
         }
 
