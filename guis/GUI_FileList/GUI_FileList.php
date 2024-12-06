@@ -3,6 +3,7 @@
 namespace filemigo\guis\GUI_FileList;
 
 use finfo;
+use JetBrains\PhpStorm\NoReturn;
 use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
 use pool\classes\GUI\GUI_Module;
@@ -124,8 +125,17 @@ class GUI_FileList extends GUI_Module
         $index = $this->Session->getVar('index');
         $path = $this->Input->getVar('path');
 
-        if (!isset($index[$path])) {
+        $notFound = !isset($index[$path]);
+        if ($notFound) {
+            http_response_code(404);
+            // Todo : make a pretty Not Found Page
             die ('404 File Not Found');
+        }
+
+        $isFile = $index[$path] === false;
+        if ($isFile) {
+            $this->openFile($path);
+            $this->disable();
         }
 
         $this->Template->setVar('path', $path);
@@ -190,7 +200,7 @@ class GUI_FileList extends GUI_Module
 
             $this->Template->setVar('url', $url);
             $this->Template->setVar('filename', $entry);
-            $this->Template->setVar('target', $infos['isFile'] ? '_blank' : '_self');
+            //$this->Template->setVar('target', $infos['isFile'] ? '_blank' : '_self');
 
             $this->Template->setVars($infos);
         }
@@ -260,6 +270,31 @@ class GUI_FileList extends GUI_Module
                 break;
         }
         return $return;
+    }
+
+    #[NoReturn]
+    private function openFile(string $path) : void
+    {
+        $filepath = $this->Weblication->getConfigValue('FMG_DATA_ROOT'). $path;
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($filepath, FILEINFO_MIME);
+
+        // Falls der MIME-Typ nicht bestimmt werden kann, Standard setzen
+        if (!$mimeType) {
+            $mimeType = 'application/octet-stream'; // Allgemeiner Typ für binäre Dateien
+        }
+
+        // Dateiname aus dem Pfad extrahieren
+        $filename = basename($filepath);
+
+        // Setze die notwendigen HTTP-Header
+        header('Content-Type: ' . $mimeType); // Setze den MIME-Typ
+        header('Content-Disposition: attachment; filename="' . $filename . '"'); // Erzwinge den Download
+        header('Content-Length: ' . filesize($filepath)); // Setze die Dateigröße
+
+        // Dateiinhalt lesen und an den Browser senden
+        readfile($filepath);
+        exit;
     }
 
     /*
