@@ -46,7 +46,7 @@ class GUI_PictureBox extends GUI_Module
         }
 
         const image = new Image();
-        image.src = options.imagePath;
+        image.src = options.src;
         image.onload = () => {
             // console.debug(`Image ${image.src} (${image.width} x ${image.height})`);
             scaleImageTo(image, Number.MAX_VALUE, options.frameHeight);
