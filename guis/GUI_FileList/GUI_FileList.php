@@ -25,7 +25,10 @@ class GUI_FileList extends GUI_Module
         'JPEG'          => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
         'GIF'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
         'PNG'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
-        'ANIMATION'     => [ 'type_name' => 'animation', 'color' => 'purple' ]
+        'SVG'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
+        'ANIMATION'     => [ 'type_name' => 'animation', 'color' => 'purple' ],
+        'UNKNOWN'       => [ 'type_name' => 'unknown_document', 'color' => 'lightgray' ],
+
     ];
     /**
      * Attributes for the script tag of the assoziated javascript file/class for this module.
@@ -283,6 +286,9 @@ class GUI_FileList extends GUI_Module
                 break;
             case 'text/plain':
                 $return = 'TEXT';
+                break;
+            case 'image/svg+xml':
+                $return = 'SVG';
                 break;
             case 'application/x-empty':
                 $return = 'EMPTY';
