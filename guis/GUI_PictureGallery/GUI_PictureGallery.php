@@ -85,12 +85,9 @@ class GUI_PictureGallery extends GUI_Module {
                         $src = $filePath;
 
                         if (!$public) {
-                            $url = new Url();
-                            $url->setParam('path', DIRECTORY_SEPARATOR . $imagePath);
-                            $src = $url->getUrl();
-                            $filePath = addEndingSlash($this->Weblication->getConfigValue('FMG_DATA_ROOT')) .$imagePath;
+                            $filePath = addEndingSlash($this->rootDirectory) .$imagePath;
+                            $src = $this->getPictureURL($imagePath);
                         }
-
 
                         $GUI_PictureBox->setVar('src', $src);
                         $GUI_PictureBox->setVar('filePath', $filePath);
@@ -120,5 +117,12 @@ class GUI_PictureGallery extends GUI_Module {
     public function setRootDirectory(string $rootDirectory): void
     {
         $this->rootDirectory = $rootDirectory;
+    }
+
+    public function getPictureURL(string $imagePath): string
+    {
+        $url = new Url();
+        $url->setParam('path', DIRECTORY_SEPARATOR . $imagePath);
+        return $url->getUrl();
     }
 }
