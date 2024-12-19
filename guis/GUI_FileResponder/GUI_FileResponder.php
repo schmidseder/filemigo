@@ -11,6 +11,13 @@ use pool\classes\Core\Url;
 
 class GUI_FileResponder extends GUI_Module
 {
+    private string $rootDirectory;
+
+    private string $path;
+
+    private bool $outputFile = false;
+
+    private bool $outputURL = false;
 
     /**
      * Attributes for the script tag of the assoziated javascript file/class for this module.
@@ -41,17 +48,34 @@ class GUI_FileResponder extends GUI_Module
 
     protected function prepare(): void
     {
-        $this->Template->setVar('src', 'hallo');
-//        $path = $this->Input->getVar('path');
-//        $this->openFile($path);
-//        $this->disable();
+        $path = $this->Input->getAsString('path');
+
+        $this->Template->setVar('src', '');
+
+        if ($this->outputFile) {
+            $this->openFile($path);
+            $this->disable();
+        }
+        else if ($this->outputURL) {
+            $url = new Url();
+            $url->setParam('path',$path);
+            $this->Template->setVar('src', $url->getUrl());
+        }
     }
 
 
     #[NoReturn]
     private function openFile(string $path) : void
     {
-        $filepath = $this->Weblication->getConfigValue('FMG_DATA_ROOT'). $path;
+        $path = ltrim($path, DIRECTORY_SEPARATOR);
+        $filepath = addEndingSlash($this->getRootDirectory()) . $path;
+        $filepath = realpath($filepath);
+
+        if (!file_exists($filepath)) {
+            http_response_code(404);
+            die('404 File Not Found');
+        }
+
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mimeType = $finfo->file($filepath, FILEINFO_MIME);
 
@@ -71,5 +95,25 @@ class GUI_FileResponder extends GUI_Module
         // Dateiinhalt lesen und an den Browser senden
         readfile($filepath);
         exit;
+    }
+
+    public function setRootDirectory(string $rootDirectory): void
+    {
+        $this->rootDirectory = $rootDirectory;
+    }
+
+    public function getRootDirectory(): string
+    {
+        return $this->rootDirectory;
+    }
+
+    public function setOutputFile(bool $outputFile=true) : void
+    {
+        $this->outputFile = $outputFile;
+    }
+
+    public function setOutputURl(bool $outputURL=true) : void
+    {
+        $this->outputURL = $outputURL;
     }
 }
