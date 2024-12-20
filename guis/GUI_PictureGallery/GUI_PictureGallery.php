@@ -1,6 +1,7 @@
 <?php
 namespace filemigo\guis\GUI_PictureGallery;
 
+use filemigo\guis\GUI_FileResponder\GUI_FileResponder;
 use filemigo\guis\GUI_PictureBox\GUI_PictureBox;
 use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
@@ -35,8 +36,13 @@ class GUI_PictureGallery extends GUI_Module {
 
     protected function prepare(): void
     {
-        $public = (bool) $this->getVar('public');
+        /** @var GUI_FileResponder $GUI_FileResponder */
+        $GUI_FileResponder = $this->Weblication->findComponent('gallery-responder');
+        $GUI_FileResponder->setRootDirectory($this->rootDirectory);
+        $GUI_FileResponder->setOutputFile(true);
 
+
+        $public = (bool) $this->getVar('public');
         $this->Template->setVar('name', $this->getName());
 
         $baseDirectory = $this->Input->getVar($this->getName());
@@ -48,8 +54,8 @@ class GUI_PictureGallery extends GUI_Module {
             return;
         }
 
-        $baseDirectory = ltrim($baseDirectory, DIRECTORY_SEPARATOR);
-        $absoluteBaseDirectory = addEndingSlash($this->rootDirectory) . addEndingSlash($baseDirectory);
+        $absoluteBaseDirectory = addEndingSlash($this->rootDirectory)
+                               . addEndingSlash(ltrim($baseDirectory, DIRECTORY_SEPARATOR));
 //        $internals = $this->getInternalParams();
 //        $createDir = isset($internals['createDir']) && (boolean)$internals['createDir'];
         if (!file_exists($absoluteBaseDirectory)) {
@@ -86,7 +92,7 @@ class GUI_PictureGallery extends GUI_Module {
 
                         if (!$public) {
                             $filePath = addEndingSlash($this->rootDirectory) .$imagePath;
-                            $src = $this->getPictureURL($imagePath);
+                            $src = $GUI_FileResponder->getSrc(DIRECTORY_SEPARATOR.$imagePath);
                         }
 
                         $GUI_PictureBox->setVar('src', $src);
@@ -117,12 +123,5 @@ class GUI_PictureGallery extends GUI_Module {
     public function setRootDirectory(string $rootDirectory): void
     {
         $this->rootDirectory = $rootDirectory;
-    }
-
-    public function getPictureURL(string $imagePath): string
-    {
-        $url = new Url();
-        $url->setParam('path', DIRECTORY_SEPARATOR . $imagePath);
-        return $url->getUrl();
     }
 }

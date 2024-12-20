@@ -39,6 +39,7 @@ class GUI_FileResponder extends GUI_Module
 
     protected array $inputFilter = [
         'path'      => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
+        'use'      => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, ''],
     ];
 
     protected function provision(): void
@@ -49,18 +50,32 @@ class GUI_FileResponder extends GUI_Module
     protected function prepare(): void
     {
         $path = $this->Input->getAsString('path');
+        $use = $this->Input->getAsString('use');
 
         $this->Template->setVar('src', '');
+
+        $moduleName = $this->getName();
+        if ($use !== $moduleName) {
+            $this->disable();
+            return;
+        }
 
         if ($this->outputFile) {
             $this->openFile($path);
             $this->disable();
         }
         else if ($this->outputURL) {
-            $url = new Url();
-            $url->setParam('path',$path);
-            $this->Template->setVar('src', $url->getUrl());
+            $src = $this->getSrc($path);
+            $this->Template->setVar('src', $src);
         }
+    }
+
+    public function getSrc(string $path): string
+    {
+        $url = new Url();
+        $url->setParam('path',$path);
+        $url->setParam('use', $this->getName());
+        return $url->getUrl();
     }
 
 

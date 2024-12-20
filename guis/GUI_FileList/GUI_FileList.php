@@ -121,7 +121,8 @@ class GUI_FileList extends GUI_Module
             $this->Session->setVar('index', $index);
             //echo pray($index);
         }
-        $this->Session->destroy();
+//        $this->Session->destroy();
+//        exit;
     }
 
     protected function prepare(): void
@@ -216,10 +217,13 @@ class GUI_FileList extends GUI_Module
 
             $this->Template->newBlock('fileblock');
 
-            $url = new Url();
-            $url->setParam('path', addEndingSlash($path) . basename($filepath));
-            $url = $url->getUrl();
-
+            if ($infos['isFile']) {
+                $url = $GUI_FileResponder->getSrc(addEndingSlash($path) . basename($filepath));
+            } elseif ($infos['isDir']) {
+                $DirUrl = new Url();
+                $DirUrl->setParam('path', addEndingSlash($path) . basename($filepath));
+                $url = $DirUrl->getUrl();
+            }
 
             $this->Template->setVar('url', $url);
             $this->Template->setVar('filename', $entry);
@@ -227,8 +231,6 @@ class GUI_FileList extends GUI_Module
 
             $this->Template->setVars($infos);
         }
-        //echo pray($this->Session->getData());
-        // $this->Session->destroy();
     }
 
     private function getDirectoryContent(string $path): array
