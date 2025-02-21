@@ -1,49 +1,75 @@
 [GUI_FileResponder(moduleName=responder)]
-<div id="{name}" class="filelistx">
+<div id="{name}" class="filelist">
     <strong> {path} </strong>
 
-    <table>
-        <thead>
-        <tr>
-            <th scope="col">
-                <!-- BLOCK isSubDirectory -->
-                <a href="{parentUrl}">
-                    <span class="material-symbols-outlined">keyboard_return</span>
-                </a>
-                <!-- END isSubDirectory -->
-            </th>
-            <th scope="col">Dateiname</th>
-            <th scope="col">Typ</th>
-            <th scope="col">Änderungsdatum</th>
-            <th scope="col">Erstellungsdatum</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- BLOCK fileblock -->
-        <tr>
+    <div class="table-container">
+        <table class="striped">
+            <thead>
+            <tr>
+                <th scope="col">
+                    <!-- BLOCK isSubDirectory -->
+                    <a href="{parentUrl}">
+                        <span class="material-symbols-outlined">keyboard_return</span>
+                    </a>
+                    <!-- END isSubDirectory -->
+                </th>
+                <th scope="col">Dateiname</th>
+                <th scope="col">Typ</th>
+                <th scope="col">Änderungsdatum</th>
+                <th scope="col">Erstellungsdatum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- BLOCK tableFile -->
+            <tr>
 
-            <th scope="row">
-                <a href="{url}">
-                    <span class="material-symbols-outlined" style="color:{color}">{type_name}</span>
-                </a>
-            </th>
-            <td>
-                <a href="{url}">{filename}</a>
-            </td>
-            <td>{type}</td>
-            <td>{modified}</td>
-            <td>{created}</td>
-        </tr>
-        <!-- END fileblock -->
-        </tbody>
-        <tfoot>
-        <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        </tfoot>
-    </table>
+                <th scope="row">
+                    <a href="{url}">
+                        <span class="material-symbols-outlined" style="color:{color}">{type_name}</span>
+                    </a>
+                </th>
+                <td>
+                    <a href="{url}">{filename}</a>
+                </td>
+                <td>{type}</td>
+                <td>{modified}</td>
+                <td>{created}</td>
+            </tr>
+            <!-- END tableFile -->
+            </tbody>
+            <tfoot>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="card-container">
+        <!-- BLOCK isSubDirectory -->
+        <a href="{parentUrl}">
+            <span class="material-symbols-outlined">keyboard_return</span>
+        </a>
+        <!-- END isSubDirectory -->
+
+        <!-- BLOCK cardFile -->
+        <article class="card">
+            <span class="mittig">
+                <span class="material-symbols-outlined" style="color:{color}">{type_name}</span>
+                <a href="{url}" class="mittig">{filename}</a>
+            </span>
+
+            <strong class="card-label">Typ:</strong> {type}<br>
+            <strong class="card-label">Änderungsdatum:</strong>{modified}<br>
+            <strong class="card-label">Erstellungsdatum:</strong>{created}<br>
+
+        </article>
+        <!-- END cardFile -->
+    </div>
+
+
 </div>

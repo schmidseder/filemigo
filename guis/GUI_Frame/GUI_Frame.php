@@ -42,10 +42,7 @@ class GUI_Frame extends GUI_CustomFrame
 
     public function prepare(): void
     {
-
-
         $this->Template->setVars($this->Weblication->getConfig());
-
 
         $rootDir = $this->Weblication->getConfigValue('FMG_DATA_ROOT');
 

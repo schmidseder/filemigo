@@ -1,0 +1,44 @@
+.table-container {
+    display: block;
+}
+
+.card-container {
+    display:none;
+}
+
+.mittig {
+    display: flex;
+    align-items: center;
+}
+
+strong.card-label {
+    color: #c3c4c5;
+}
+
+.card {
+    background: var(--pico-background-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-link {
+    display: flex;
+    align-items: center;  /* Vertikal zentrieren */
+}
+
+/* Material Icon anpassen */
+.material-symbols-outlined {
+    margin-right: 8px; /* Abstand zwischen Icon und Text */
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        display: none; /* Tabelle ausblenden */
+    }
+    .card-container {
+        display: grid; /* Karten-Layout aktivieren */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+}

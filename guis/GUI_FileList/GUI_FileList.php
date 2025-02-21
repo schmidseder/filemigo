@@ -190,6 +190,8 @@ class GUI_FileList extends GUI_Module
         $content = [ ...$directories, ...$files];
 
         $format = $this->Weblication->getDefaultFormat('php.date.time');
+
+        $fileList = [];
         foreach ($content as $entry) {
             $filepath = $this->Weblication->getConfigValue('FMG_DATA_ROOT'). addEndingSlash($path) . $entry;
 
@@ -215,8 +217,6 @@ class GUI_FileList extends GUI_Module
 
             $infos = [...$infos, ...$this->icons[$type]];
 
-            $this->Template->newBlock('fileblock');
-
             if ($infos['isFile']) {
                 $url = $GUI_FileResponder->getSrc(addEndingSlash($path) . basename($filepath));
             } elseif ($infos['isDir']) {
@@ -225,11 +225,20 @@ class GUI_FileList extends GUI_Module
                 $url = $DirUrl->getUrl();
             }
 
-            $this->Template->setVar('url', $url);
-            $this->Template->setVar('filename', $entry);
-            //$this->Template->setVar('target', $infos['isFile'] ? '_blank' : '_self');
+            $infos['url'] = $url;
+            $infos['filename'] = $entry;
 
-            $this->Template->setVars($infos);
+            $fileList[] = $infos;
+        }
+
+        foreach ($fileList as $fileRecord) {
+            $this->Template->newBlock('tableFile');
+            $this->Template->setVars($fileRecord);
+        }
+
+        foreach ($fileList as $fileRecord) {
+            $this->Template->newBlock('cardFile');
+            $this->Template->setVars($fileRecord);
         }
     }
 
