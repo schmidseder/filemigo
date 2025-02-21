@@ -42,7 +42,8 @@ class GUI_Frame extends GUI_CustomFrame
 
     public function prepare(): void
     {
-        $this->Template->setVars($this->Weblication->getConfig());
+        $this->Template->setVar('FMG_TITLE', $this->Weblication->getConfigValue('FMG_TITLE'));
+        $this->Template->setVar('FMG_FOOTER', $this->Weblication->getConfigValue('FMG_FOOTER'));
 
         $rootDir = $this->Weblication->getConfigValue('FMG_DATA_ROOT');
 
@@ -60,6 +61,5 @@ class GUI_Frame extends GUI_CustomFrame
         $GUI_PictureGallery = $this->Weblication->findComponent('pictures');
         $GUI_PictureGallery->setRootDirectory($rootDir);
         $GUI_PictureGallery->setVar('pictures', $path);
-
     }
 }

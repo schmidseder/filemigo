@@ -29,11 +29,8 @@ class GUI_FileList extends GUI_Module
         'UNKNOWN'       => [ 'type_name' => 'unknown_document', 'color' => 'lightgray' ],
 
     ];
-    /**
-     * Attributes for the script tag of the assoziated javascript file/class for this module.
-     *
-     * @var array|string[]
-     */
+
+    private null|array $branches = null;
 
     /**
      * @var int
@@ -139,6 +136,12 @@ class GUI_FileList extends GUI_Module
 
         $isFile = $index[$path] === false;
 
+        $this->branches = $this->Weblication->getConfigValue('FMG_DATA_ROOT_BRANCHES');
+        if ($this->branches !== null) {
+            $this->branches = array_unique($this->branches);
+            $this->branches = array_flip($this->branches);
+        }
+
         $rootDir = $this->Weblication->getConfigValue('FMG_DATA_ROOT');
         $GUI_FileResponder = $this->Weblication->findComponent('responder');
         $GUI_FileResponder->setRootDirectory($rootDir);
@@ -161,6 +164,8 @@ class GUI_FileList extends GUI_Module
             $this->Template->setVar('parentUrl', $parentUrl->getUrl());
             $this->Template->leaveBlock();
         }
+
+        $isRootDirectory = !$isSubDirectory;
 
         $this->Template->setVar('path', $path);
         $this->Template->setVar('name', $this->getName());
@@ -193,7 +198,11 @@ class GUI_FileList extends GUI_Module
 
         $fileList = [];
         foreach ($content as $entry) {
-            $filepath = $this->Weblication->getConfigValue('FMG_DATA_ROOT'). addEndingSlash($path) . $entry;
+            if ($isRootDirectory && !$this->displayAllowed($entry)) {
+                continue;
+            }
+
+            $filepath = $rootDir . addEndingSlash($path) . $entry;
 
             $type = $this->type($filepath);
 
@@ -320,4 +329,26 @@ class GUI_FileList extends GUI_Module
 
     }
     */
+
+    /**
+     * Checks, if the entry is allowed to be displayed according to the branches definitions.
+     *
+     * @param string $entry
+     * @return bool
+     */
+    private function displayAllowed(string $entry) : bool
+    {
+        // no definition - all entries will be displayed
+        if ($this->branches === null) {
+            return true;
+        }
+
+        // explicit defined - entry will be displayed
+        if (isset($this->branches[$entry])) {
+            return true;
+        }
+
+        // no explicit definition - entry will not be displayed
+        return false;
+    }
 }
