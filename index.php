@@ -19,11 +19,7 @@
     $App->setConfig($config);
 
     $loggedIn = $App->Session->getVar('loggedIn', false);
-    if ($loggedIn) {
-        $launchModule = GUI_Frame::class;
-    } else {
-        $launchModule = GUI_Login::class;
-    }
+    $launchModule = $loggedIn ? GUI_Frame::class : GUI_Login::class;
 
     try {
         $App->setup([
