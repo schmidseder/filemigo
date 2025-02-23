@@ -10,5 +10,9 @@ return [
         'directory_two',
         'directory_three',
         'file_four.pdf'
+    ],
+    'FMG_USERS' => [
+        'admin' => 'password123',
+        'xaver' => 'password456'
     ]
 ];

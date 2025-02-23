@@ -10,6 +10,7 @@
 
     use filemigo\classes\FilemigoApp;
     use filemigo\guis\GUI_Frame\GUI_Frame;
+    use filemigo\guis\GUI_Login\GUI_Login;
 
     FilemigoApp::caching(IS_PRODUCTION);
 
@@ -17,11 +18,18 @@
     $App->startPHPSession();
     $App->setConfig($config);
 
+    $loggedIn = $App->Session->getVar('loggedIn', false);
+    if ($loggedIn) {
+        $launchModule = GUI_Frame::class;
+    } else {
+        $launchModule = GUI_Login::class;
+    }
+
     try {
         $App->setup([
             'application.name' => 'filemigo',
             'application.title' => 'Filemigo - Simple Web File Manager',
-            'application.launchModule' => GUI_Frame::class,
+            'application.launchModule' => $launchModule,
         ]);
 
         $App->render();

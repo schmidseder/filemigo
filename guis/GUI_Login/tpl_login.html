@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <headdata></headdata>
+</head>
+
+<body>
+<header class="container">
+    <strong>{FMG_TITLE}</strong>
+</header>
+<main class="container">
+    <section>
+        <hgroup>
+            <h1>Login</h1>
+            <h2>Bitte melden Sie sich an</h2>
+        </hgroup>
+        <form>
+            <label for="username">Benutzername</label>
+            <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Ihr Benutzername"
+                    required
+            >
+
+            <label for="password">Passwort</label>
+            <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Ihr Passwort"
+                    required
+            >
+
+            <button type="submit">Anmelden</button>
+        </form>
+    </section>
+</main>
+<footer class="container">
+    {FMG_FOOTER}
+</footer>
+{ScriptFilesAtTheEnd}
+</body>
+</html>

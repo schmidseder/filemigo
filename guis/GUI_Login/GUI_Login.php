@@ -1,0 +1,46 @@
+<?php
+
+namespace filemigo\guis\GUI_Login;
+
+use pool\classes\GUI\Builtin\GUI_CustomFrame;
+use pool\classes\Core\Input\Filter\DataType;
+use pool\classes\Core\Input\Input;
+
+class GUI_Login extends GUI_CustomFrame
+{
+    protected int $superglobals = Input::POST;
+
+    protected array $templates = [
+        'stdout' => 'tpl_login.html',
+    ];
+
+    protected array $inputFilter = [
+        'user' => [ DataType::ALPHANUMERIC, ''],
+        'password' => [ DataType::ALPHANUMERIC, '']
+    ];
+
+    /**
+     * Templates laden
+     */
+    public function loadFiles(): static
+    {
+        parent::loadFiles();
+
+//        $appCSS = $this->Weblication->findStyleSheet('app.css');
+//        $this->getHeadData()->addStyleSheet($appCSS);
+
+        $picoCss = $this->Weblication->findStyleSheet('pico.min.css');
+        $this->getHeadData()->addStyleSheet($picoCss);
+
+//        $appJS = $this->Weblication->findJavaScript('app.js');
+//        $this->addScriptFileAtTheEnd($appJS);
+
+        return $this;
+    }
+
+    public function prepare(): void
+    {
+        $this->Template->setVar('FMG_TITLE', $this->Weblication->getConfigValue('FMG_TITLE'));
+        $this->Template->setVar('FMG_FOOTER', $this->Weblication->getConfigValue('FMG_FOOTER'));
+    }
+}
