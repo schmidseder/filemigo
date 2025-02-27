@@ -40,6 +40,8 @@ class GUI_PictureBox extends GUI_Module
      */
     loadImage(options)
     {
+        this.checkSession();
+
         if (options.notFound) {
             this.rootElement.innerHTML = options.imagePath + ' 404 not found';
             return;
@@ -60,6 +62,8 @@ class GUI_PictureBox extends GUI_Module
 
     /* Events */
     onClick = (evt) => {
+        this.checkSession();
+
         this.gallery.setOverlayMode(true);
 
         this.rootElement.classList.remove('hover-effect');
@@ -79,6 +83,16 @@ class GUI_PictureBox extends GUI_Module
     onMouseLeave = (evt) => {
         if (!this.gallery.isOverlayMode()) {
             this.rootElement.classList.remove('hover-effect');
+        }
+    }
+
+    checkSession() {
+        try {
+            const sessionChecker = $Weblication.getModule('sessionChecker');
+            sessionChecker.checkSession();
+        }
+        catch (error) {
+            // nothing to here - no session checking
         }
     }
 }

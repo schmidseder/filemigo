@@ -61,6 +61,10 @@ class GUI_Login extends GUI_CustomFrame
                 $Url = new Url();
                 $Url->clearQuery();
                 $Url->reload();
+                break;
+            default:
+                // Todo
+                $here = 'i am here';
         };
 
     }
