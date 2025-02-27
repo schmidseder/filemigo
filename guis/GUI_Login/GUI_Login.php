@@ -55,7 +55,7 @@ class GUI_Login extends GUI_CustomFrame
                 if ($allowedUsers && isset($allowedUsers[$user])) {
                     $allowedPassword = $allowedUsers[$user];
 
-                    if ($allowedPassword === $password) {
+                    if (password_verify($password, $allowedPassword)) {
                         $this->Session->setVar('loggedIn', true);
                         $this->Session->setVar('loggedInUser', $user);
                     }

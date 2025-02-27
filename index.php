@@ -1,9 +1,6 @@
 <?php
     namespace filemigo;
 
-    //ini_set('session.gc_maxlifetime', 10);  // Session läuft nach einer Stunde ab
-    //ini_set('session.cookie_lifetime', 10);
-
     const DIR_CONFIGS_ROOT = __DIR__.'/config';
     require_once DIR_CONFIGS_ROOT.'/config.inc.php';
     require_once '../pool/pool.lib.php';
