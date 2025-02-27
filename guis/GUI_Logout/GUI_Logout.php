@@ -44,6 +44,5 @@ class GUI_Logout extends GUI_Module
     protected function prepare(): void
     {
         $this->Template->setVar('name', $this->getName());
-
     }
 }
