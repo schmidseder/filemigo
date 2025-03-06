@@ -7,6 +7,11 @@
 
     $config = require DIR_CONFIGS_ROOT . '/filemigo.inc.php';
 
+//    if (IS_TESTSERVER) {
+//        ini_set('session.gc_maxlifetime', 10);
+//        ini_set('session.cookie_lifetime', 10);
+//    }
+
     use Exception;
 
     use filemigo\classes\FilemigoApp;

@@ -36,13 +36,17 @@ class GUI_Logout extends GUI_Module
         $_SESSION = [];
         $success = session_destroy();
         return [
-            'success' => $success,
-            'session_name' => session_name()
+            'success' => $success
         ];
     }
 
     protected function prepare(): void
     {
         $this->Template->setVar('name', $this->getName());
+
+        $monitorInactivity = $this->Input->getAsBool('monitorInactivity');
+        $this->setClientVar('monitorInactivity', $monitorInactivity);
+
+        $this->setClientVar('session_name', session_name());
     }
 }
