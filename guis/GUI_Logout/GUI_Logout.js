@@ -40,7 +40,7 @@ class GUI_Logout extends GUI_Module
         }
     }
 
-    resetTimer()
+    resetTimer = () =>
     {
         // console.debug('timer reset');
         clearTimeout(this.timer);
