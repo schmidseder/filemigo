@@ -34,7 +34,6 @@ class GUI_Logout extends GUI_Module
         button.addEventListener('click', this.onLogout);
 
         if (options.monitorInactivity) {
-            console.debug('Überwache Inaktivität....');
             this.resetTimer();
             const events = ["mousemove", "keypress", "scroll", "click"];
             events.forEach(event => document.addEventListener(event, this.resetTimer, true));  // useCapture = true
@@ -43,15 +42,12 @@ class GUI_Logout extends GUI_Module
 
     resetTimer = () =>
     {
-        // console.debug('timer reset');
         clearTimeout(this.timer);
         this.timer = setTimeout(this.logoutUser, this.session_maxlifetime * 1000);
     }
 
     logoutUser = () =>
     {
-        console.debug('logout user');
-        //alert("Du wurdest wegen Inaktivität ausgeloggt");
         this.request('doLogout', {}, { method: 'POST'}).then(
             (value) => this.reload(),
             (error) => console.debug(error)
