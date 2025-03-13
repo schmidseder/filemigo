@@ -73,7 +73,9 @@ class GUI_Logout extends GUI_Module
 
     reload() {
         document.cookie = `${this.session_name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-        window.location.reload();
+        const url = new URL(window.location);
+        url.search = ''; // remove query params
+        window.location.href = url.toString();
     }
 }
 Weblication.registerClass(GUI_Logout);
