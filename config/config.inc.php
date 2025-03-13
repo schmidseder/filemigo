@@ -75,4 +75,5 @@ const DIR_DATA_ROOT = DIR_DOCUMENT_ROOT . '/data';
 const DIR_RELATIVE_DATA_ROOT = DIR_RELATIVE_DOCUMENT_ROOT . '/data';
 const DIR_RESOURCES_ROOT = DIR_DOCUMENT_ROOT . '/resources';
 
-const DIR_POOL_ROOT = '/virtualweb/pool';
+$PoolRoot ??= $_SERVER['_PoolRoot'] ?? '/virtualweb/pool';
+define('DIR_POOL_ROOT', $PoolRoot);
