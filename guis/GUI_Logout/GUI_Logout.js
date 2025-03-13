@@ -16,9 +16,9 @@ class GUI_Logout extends GUI_Module
     session_name;
 
     /**
-     * InactiveTime
+     * session maxlifetime (seconds)
      */
-    inactiveTime = 1;
+    session_maxlifetime;
 
     /**
      * Initial method of the module
@@ -28,6 +28,7 @@ class GUI_Logout extends GUI_Module
     init(options = {})
     {
         this.session_name = options.session_name;
+        this.session_maxlifetime = options.session_maxlifetime;
 
         const button = this.element('button');
         button.addEventListener('click', this.onLogout);
@@ -44,7 +45,7 @@ class GUI_Logout extends GUI_Module
     {
         // console.debug('timer reset');
         clearTimeout(this.timer);
-        this.timer = setTimeout(this.logoutUser, this.inactiveTime * 60 * 1000);
+        this.timer = setTimeout(this.logoutUser, this.session_maxlifetime * 1000);
     }
 
     logoutUser = () =>

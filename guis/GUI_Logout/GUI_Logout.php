@@ -48,5 +48,6 @@ class GUI_Logout extends GUI_Module
         $this->setClientVar('monitorInactivity', $monitorInactivity);
 
         $this->setClientVar('session_name', session_name());
+        $this->setClientVar('session_maxlifetime', ini_get('session.gc_maxlifetime'));
     }
 }
