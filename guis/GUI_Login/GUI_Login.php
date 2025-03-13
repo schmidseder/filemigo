@@ -27,9 +27,6 @@ class GUI_Login extends GUI_CustomFrame
     {
         parent::loadFiles();
 
-        $picoCss = $this->Weblication->findStyleSheet('pico.min.css');
-        $this->getHeadData()->addStyleSheet($picoCss);
-
         $appCss = $this->Weblication->findStyleSheet('app.css');
         $this->getHeadData()->addStyleSheet($appCss);
 

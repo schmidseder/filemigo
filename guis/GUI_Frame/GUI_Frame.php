@@ -26,19 +26,13 @@ class GUI_Frame extends GUI_CustomFrame
     {
         parent::loadFiles();
 
-        //$appCSS = $this->Weblication->findStyleSheet('app.css');
-        //$this->getHeadData()->addStyleSheet($appCSS);
+        $appCSS = $this->Weblication->findStyleSheet('app.css');
+        $this->getHeadData()->addStyleSheet($appCSS);
 
-        $picoCss = $this->Weblication->findStyleSheet('pico.min.css');
-        $this->getHeadData()->addStyleSheet($picoCss);
+        // $appJS = $this->Weblication->findJavaScript('app.js');
+        // $this->addScriptFileAtTheEnd($appJS);
 
-        $appCss = $this->Weblication->findStyleSheet('app.css');
-        $this->getHeadData()->addStyleSheet($appCss);
-
-        $appJS = $this->Weblication->findJavaScript('app.js');
-        $this->addScriptFileAtTheEnd($appJS);
-
-        $this->getHeadData()->addStyleSheet('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+        // $this->getHeadData()->addStyleSheet('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
         return $this;
     }
