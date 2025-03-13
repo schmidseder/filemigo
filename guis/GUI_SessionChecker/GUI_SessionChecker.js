@@ -24,11 +24,13 @@ class GUI_SessionChecker extends GUI_Module
         try {
             const response = await this.request('checkSession', {}, {method : 'POST'});
             if (response.noSession) {
-                window.location.reload();
+                const LogoutModul = $Weblication.getModule('logout');
+                LogoutModul.reload();
             }
         }
         catch(error) {
-            console.log(error);
+            //console.log(error);
+            window.location.reload();
         }
         finally {
 
