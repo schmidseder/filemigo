@@ -32,9 +32,17 @@ class GUI_Logout extends GUI_Module
 
     private function doLogout(): array
     {
-        session_start();
-        $_SESSION = [];
-        $success = session_destroy();
+        $success = false;
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            $_SESSION = [];
+            $success = session_destroy();
+
+            session_start();
+            session_regenerate_id(true);
+        }
         return [
             'success' => $success
         ];

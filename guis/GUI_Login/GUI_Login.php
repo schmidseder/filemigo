@@ -53,19 +53,23 @@ class GUI_Login extends GUI_CustomFrame
                     $allowedPassword = $allowedUsers[$user];
 
                     if (password_verify($password, $allowedPassword)) {
+                        // start session again if it was close to avoid race conditions
+                        if (session_status() === PHP_SESSION_NONE) {
+                            session_start();
+                        }
+                        // regenerate session id after login
+                        if (session_status() === PHP_SESSION_ACTIVE) {
+                            $this->Session->regenerate_id();
+                        }
+                        // set values in session
                         $this->Session->setVar('loggedIn', true);
                         $this->Session->setVar('loggedInUser', $user);
                     }
                 }
+                // reload page
                 $Url = new Url();
                 $Url->clearQuery();
                 $Url->reload();
-                break;
-            default:
-                // Todo
-                $here = 'i am here';
         };
-
     }
-
 }
