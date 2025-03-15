@@ -17,7 +17,8 @@ class GUI_Login extends GUI_CustomFrame
 
     protected array $inputFilter = [
         'user' => [ DataType::ALPHANUMERIC, ''],
-        'password' => [ DataType::ALPHANUMERIC, '']
+        'password' => [ DataType::ALPHANUMERIC, ''],
+        'csrf_token' => [ DataType::ALPHANUMERIC, '']
     ];
 
     /**
@@ -38,6 +39,14 @@ class GUI_Login extends GUI_CustomFrame
 
     public function prepare(): void
     {
+        // csrf token for more security
+        $tokenExists = $this->Session->exists('csrf_token');
+        if (!$tokenExists) {
+            $this->Session->setVar('csrf_token', bin2hex(random_bytes(32)));
+        }
+        $this->Template->setVar('csrf_token', $this->Session->getVar('csrf_token'));
+        $this->setClientVar('csrf_token', $this->Session->getVar('csrf_token'));
+
         $this->Template->setVar('name', $this->getName());
 
         $this->Template->setVar('FMG_TITLE', $this->Weblication->getConfigValue('FMG_TITLE'));
@@ -45,8 +54,14 @@ class GUI_Login extends GUI_CustomFrame
 
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
+                $csrf_token = $this->Input->getVar('csrf_token');
                 $user = $this->Input->getAsString('user');
                 $password = $this->Input->getAsString('password');
+
+                if ($csrf_token !== $this->Session->getVar('csrf_token')) {
+                    http_response_code(403);
+                    die ('forbidden');
+                }
 
                 $allowedUsers = $this->Weblication->getConfigValue('FMG_USERS');
                 if ($allowedUsers && isset($allowedUsers[$user])) {
@@ -70,6 +85,6 @@ class GUI_Login extends GUI_CustomFrame
                 $Url = new Url();
                 $Url->clearQuery();
                 $Url->reload();
-        };
+        }
     }
 }
