@@ -33,7 +33,13 @@ class GUI_ZipFolder extends GUI_Module
 
     openDialog = () =>
     {
-        this.dialog.showModal();
+        try {
+            const path = $Weblication.getModule('fileList').getPath();
+            this.element('div.path-info').innerHTML = path;
+            this.dialog.showModal();
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     closeDialog = () =>

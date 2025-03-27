@@ -2,6 +2,10 @@
     display:inline;
 }
 
+div.path-info {
+    color: var(--pico-primary)
+}
+
 button.zip-folder {
     float: right;
     vertical-align: top;
