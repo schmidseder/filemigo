@@ -168,6 +168,7 @@ class GUI_FileList extends GUI_Module
         $isRootDirectory = !$isSubDirectory;
 
         $this->Template->setVar('path', $path);
+        $this->setClientVar('path', $path);
         $this->Template->setVar('name', $this->getName());
 
         $list = $this->getDirectoryContent($path);

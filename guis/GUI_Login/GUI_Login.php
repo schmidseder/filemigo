@@ -31,8 +31,8 @@ class GUI_Login extends GUI_CustomFrame
         $appCss = $this->Weblication->findStyleSheet('app.css');
         $this->getHeadData()->addStyleSheet($appCss);
 
-//        $appJS = $this->Weblication->findJavaScript('app.js');
-//        $this->addScriptFileAtTheEnd($appJS);
+        $appJS = $this->Weblication->findJavaScript('app.js');
+        $this->addScriptFileAtTheEnd($appJS);
 
         return $this;
     }

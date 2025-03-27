@@ -1,0 +1,15 @@
+.d-inline {
+    display:inline;
+}
+
+button.zip-folder {
+    float: right;
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+    button.zip-folder {
+        display: none;
+    }
+}

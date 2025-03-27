@@ -1,22 +1,8 @@
 @import url('../third-party/pico/pico.min.css');
 
-/*body {
-    font-family: Verdana, sans-serif;
-}
- */
-
-button.logout-button {
-    float: right;
-    vertical-align: top;
-}
-
 span.title-style {
     font-size:1.5em;
     font-weight: bold;
-}
-
-section.login-form {
-    max-width: 400px;
 }
 
 @font-face {
