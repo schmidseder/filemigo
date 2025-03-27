@@ -27,6 +27,10 @@ strong.card-label {
     align-items: center;  /* Vertikal zentrieren */
 }
 
+th:first-child, td:first-child {
+    width: 30px;
+}
+
 /* Material Icon anpassen */
 .material-symbols-outlined {
     margin-right: 8px; /* Abstand zwischen Icon und Text */
