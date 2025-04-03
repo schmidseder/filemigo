@@ -38,8 +38,9 @@ class GUI_FileResponder extends GUI_Module
     ];
 
     protected array $inputFilter = [
-        'path'      => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
-        'use'      => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, ''],
+        'pathKey'    => [ DataType::ALPHANUMERIC, 'path'],
+        'path'       => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
+        'use'        => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, ''],
     ];
 
     protected function provision(): void
@@ -49,7 +50,8 @@ class GUI_FileResponder extends GUI_Module
 
     protected function prepare(): void
     {
-        $path = $this->Input->getAsString('path');
+        $pathKey = $this->Input->getAsString('pathKey');
+        $path = $this->Input->getAsString($pathKey);
         $use = $this->Input->getAsString('use');
 
         $this->Template->setVar('src', '');
@@ -72,8 +74,11 @@ class GUI_FileResponder extends GUI_Module
 
     public function getSrc(string $path): string
     {
+        $pathKey = $this->Input->getAsString('pathKey');
+
         $url = new Url();
-        $url->setParam('path',$path);
+        $url->clearQuery();
+        $url->setParam($pathKey, $path);
         $url->setParam('use', $this->getName());
         return $url->getUrl();
     }
@@ -88,7 +93,7 @@ class GUI_FileResponder extends GUI_Module
 
         if (!file_exists($filepath)) {
             http_response_code(404);
-            die('404 File Not Found');
+            die('404 File Not Found (FileResponder)');
         }
 
         $finfo = new \finfo(FILEINFO_MIME_TYPE);

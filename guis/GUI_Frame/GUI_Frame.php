@@ -3,6 +3,7 @@
 namespace filemigo\guis\GUI_Frame;
 
 use filemigo\guis\GUI_PictureGallery\GUI_PictureGallery;
+use filemigo\guis\GUI_ZipFolder\GUI_ZipFolder;
 use pool\classes\GUI\Builtin\GUI_CustomFrame;
 use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
@@ -42,21 +43,19 @@ class GUI_Frame extends GUI_CustomFrame
         $this->Template->setVar('FMG_TITLE', $this->Weblication->getConfigValue('FMG_TITLE'));
         $this->Template->setVar('FMG_FOOTER', $this->Weblication->getConfigValue('FMG_FOOTER'));
 
+//        /** @var GUI_ZipFolder $GUI_ZipFolder */
+//        $GUI_ZipFolder = $this->Weblication->findComponent('zip');
+//        if ($GUI_ZipFolder) {
+//            $GUI_ZipFolder->cleanUpZipFiles();
+//        }
+
         $rootDir = $this->Weblication->getConfigValue('FMG_DATA_ROOT');
-
-        $index = $this->Session->getVar('index');
         $path = $this->Input->getAsString('path');
-
-        $notFound = !isset($index[$path]);
-        if ($notFound) {
-            http_response_code(404);
-            // Todo : make a pretty Not Found Page
-            die ('404 File Not Found');
-        }
-
-        // / ** @var  $GUI_PictureGallery GUI_PictureGallery * /
+        /** @var GUI_PictureGallery $GUI_PictureGallery */
         $GUI_PictureGallery = $this->Weblication->findComponent('pictures');
-        $GUI_PictureGallery->setRootDirectory($rootDir);
-        $GUI_PictureGallery->setVar('pictures', $path);
+        if ($GUI_PictureGallery) {
+            $GUI_PictureGallery->setRootDirectory($rootDir);
+            $GUI_PictureGallery->setVar('pictures', $path);
+        }
     }
 }

@@ -36,6 +36,8 @@ class GUI_ZipFolder extends GUI_Module
         try {
             const path = $Weblication.getModule('fileList').getPath();
             this.element('div.path-info').innerHTML = path;
+            this.element('div.zip-link').innerHTML = '';
+            this.element('span.loader').style.display = 'none';
             this.dialog.showModal();
         } catch(error) {
             console.log(error);
@@ -50,16 +52,33 @@ class GUI_ZipFolder extends GUI_Module
     download = async () =>
     {
         try {
+            this.element('div.zip-link').innerHTML = '';
+            this.element('span.loader').style.display = 'block';
+
             const path  = $Weblication.getModule('fileList').getPath();
             const response = await this.request('download', {'path': path}, { method: 'POST'});
 
             console.debug(response);
+            if (response.success) {
+                const zipUrl = new Url();
+                zipUrl.setScript(response.zipUrl);
+                zipUrl.setParam('zipDownload', true);
+                // console.debug(zipUrl.getUrl());
+
+                const link = document.createElement('a');
+                link.href = zipUrl.getUrl();
+                link.textContent = response.zipName;
+                // link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+
+                this.element('div.zip-link').appendChild(link);
+            }
         }
         catch(error) {
             console.log(error);
         }
         finally {
-            console.log('finally');
+            this.element('span.loader').style.display = 'none';
         }
     }
  }

@@ -1,6 +1,4 @@
 <?php
-
-
 return [
     'FMG_TITLE' => 'This are the files of the none existing person Josef Xaver Kreitmeier!',
     'FMG_FOOTER' => 'Josef Xaver Kreitmeier, Altstadt, Landshut, Niederbayern',
@@ -14,5 +12,6 @@ return [
     'FMG_USERS' => [
         'admin' => 'password123',
         'xaver' => 'password456'
-    ]
+    ],
+    'FMG_ZIP_DIR' => DIR_DOCUMENT_ROOT . '/filemigo-zip'
 ];

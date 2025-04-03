@@ -131,7 +131,7 @@ class GUI_FileList extends GUI_Module
         if ($notFound) {
             http_response_code(404);
             // Todo : make a pretty Not Found Page
-            die ('404 File Not Found');
+            die ('404 File Not Found (FileList)');
         }
 
         $isFile = $index[$path] === false;

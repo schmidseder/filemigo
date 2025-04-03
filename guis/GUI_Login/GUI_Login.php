@@ -2,6 +2,8 @@
 
 namespace filemigo\guis\GUI_Login;
 
+use pool\classes\GUI\GUI_Module;
+use filemigo\guis\GUI_ZipFolder\GUI_ZipFolder;
 use pool\classes\GUI\Builtin\GUI_CustomFrame;
 use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
@@ -79,6 +81,10 @@ class GUI_Login extends GUI_CustomFrame
                         // set values in session
                         $this->Session->setVar('loggedIn', true);
                         $this->Session->setVar('loggedInUser', $user);
+
+                        /** @var GUI_ZipFolder $GUI_ZipFolder */
+                        $GUI_ZipFolder = GUI_Module::createGUIModule(GUI_ZipFolder::class, $this->Weblication, $this);
+                        $GUI_ZipFolder->cleanUpZipFiles();
                     }
                 }
                 // reload page
