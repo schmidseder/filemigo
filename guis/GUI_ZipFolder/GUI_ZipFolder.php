@@ -52,10 +52,11 @@ class GUI_ZipFolder extends GUI_Module
         // clean up old zip files
         $loggedInUser = $this->Session->getVar('loggedInUser');
         $zipDir = $this->Weblication->getConfigValue('FMG_ZIP_DIR');
-        $pattern = addEndingSlash($zipDir) . '*' . $loggedInUser . '.zip';
-
-        foreach (glob($pattern) as $path) {
-            unlink($path);
+        if ($zipDir && $this->isWriteableDirectory($zipDir)) {
+            $pattern = addEndingSlash($zipDir) . '*' . $loggedInUser . '.zip';
+            foreach (glob($pattern) as $path) {
+                unlink($path);
+            }
         }
     }
 
@@ -186,7 +187,7 @@ class GUI_ZipFolder extends GUI_Module
         return $fullString; // Falls der Prefix nicht gefunden wird, bleibt der String unverändert
     }
 
-    public function getZipResponder () : GUI_FileResponder
+    public function getZipResponder() : GUI_FileResponder
     {
         $rootDir = $this->Weblication->getConfigValue('FMG_ZIP_DIR');
         $GUI_FileResponder = $this->Weblication->findComponent('zip-responder');
