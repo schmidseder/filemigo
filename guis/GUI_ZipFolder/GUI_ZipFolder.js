@@ -73,6 +73,9 @@ class GUI_ZipFolder extends GUI_Module
 
                 this.element('div.zip-link').appendChild(link);
             }
+            else {
+                this.element('div.zip-link').innerHTML = response.message;
+            }
         }
         catch(error) {
             console.log(error);
