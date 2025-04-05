@@ -1,6 +1,7 @@
 [GUI_FileResponder(moduleName=responder)]
 <div id="{name}" class="filelist">
-    <strong> {path} </strong>
+    [GUI_Breadcrumb(moduleName=breadcrumb)]
+    <!--    <strong> {path} </strong>-->
 
     <div class="table-container">
         <table class="striped">

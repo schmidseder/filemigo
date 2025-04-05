@@ -2,6 +2,7 @@
 
 namespace filemigo\guis\GUI_FileList;
 
+use filemigo\guis\GUI_Breadcrumb\GUI_Breadcrumb;
 use finfo;
 use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
@@ -133,6 +134,10 @@ class GUI_FileList extends GUI_Module
             // Todo : make a pretty Not Found Page
             die ('404 File Not Found (FileList)');
         }
+
+        /** @var GUI_Breadcrumb $GUI_Breadcrumb */
+        $GUI_Breadcrumb = $this->Weblication->findComponent('breadcrumb');
+        $GUI_Breadcrumb->setVar('displayPath', $path);
 
         $isFile = $index[$path] === false;
 
