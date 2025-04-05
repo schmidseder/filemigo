@@ -205,6 +205,10 @@ class GUI_FileList extends GUI_Module
 
             $filepath = $rootDir . addEndingSlash($path) . $entry;
 
+            if (!file_exists($filepath)) {
+                continue;
+            }
+
             $type = $this->type($filepath);
 
             $pathinfo = pathinfo($filepath);
