@@ -14,7 +14,8 @@
                     </a>
                     <!-- END isSubDirectory -->
                 </th>
-                <th scope="col">Dateiname</th>
+                <th scope="col" class="filename">Dateiname</th>
+                <th scope="col">Größe</th>
                 <th scope="col">Typ</th>
                 <th scope="col">Letzte Änderung</th>
 <!--                <th scope="col">Letzter Zugriff</th>-->
@@ -32,6 +33,7 @@
                 <td>
                     <a href="{url}">{filename}</a>
                 </td>
+                <td>{size}</td>
                 <td>{type}</td>
                 <td>{last_modified}</td>
 <!--                <td>{last_access}</td>-->
@@ -41,6 +43,7 @@
             <tfoot>
             <tr>
                 <th scope="row"></th>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

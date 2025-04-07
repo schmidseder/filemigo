@@ -226,7 +226,7 @@ class GUI_FileList extends GUI_Module
             $infos = [
                 'isDir' => is_dir($filepath),
                 'isFile' => is_file($filepath),
-                'size' => filesize($filepath),
+                'size' => $this->readableFilesize($filepath),
                 'last_modified' => date($format, filemtime($filepath)),
                 'last_access' => date($format, fileatime($filepath)),
                 //'mime_content_type' => mime_content_type($filepath),
@@ -259,6 +259,31 @@ class GUI_FileList extends GUI_Module
             $this->Template->newBlock('cardFile');
             $this->Template->setVars($fileRecord);
         }
+    }
+
+    private function readableFilesize(string $filepath, int $decimals=2) : string
+    {
+        if (!is_file($filepath)) {
+            return '';
+        }
+
+        $bytes = filesize($filepath);
+
+        return $bytes;
+//
+//        if (!$bytes) {
+//            return '';
+//        }
+//        if (!is_numeric($bytes) || $bytes < 0) {
+//            return '';
+//        }
+//
+//        // $factor = floor(log($bytes, 1024));
+//        $factor = floor((strlen($bytes) - 1) / 3);
+//        if ($factor > 0) {
+//            $unitChars = 'KMGT';
+//        }
+//        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . $unitChars[$factor - 1] . 'B';
     }
 
     private function getDirectoryContent(string $path): array

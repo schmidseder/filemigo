@@ -31,24 +31,9 @@ th:first-child, td:first-child {
     width: 30px;
 }
 
-div.table-container table th, td {
-    min-width: 100px;
-    max-width: 300px;
-    overflow: hidden; /* Verhindert das Überlaufen des Inhalts */
-    text-overflow: ellipsis; /* Zeigt '...' an, wenn der Inhalt zu lang ist */
-    white-space: nowrap; /* Verhindert den Umbruch des Texts */
+div.table-container table th.filename {
+    width: 900px;
 }
-
-/*
-div.table-container table {
-    table-layout: fixed;
-    width: 100%;
-}
-div.table-container table th, td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-*/
 
 /* Material Icon anpassen */
 .material-symbols-outlined {
