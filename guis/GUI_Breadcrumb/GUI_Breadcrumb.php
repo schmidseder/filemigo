@@ -38,6 +38,7 @@ class GUI_Breadcrumb extends GUI_Module
         foreach ($pieces as $index => $piece) {
             $isFirst = ($index === 0);
             $isLast = ($index === count($pieces) - 1);
+
             $num = $index + 1;
             $part = array_slice($pieces, 0 , $num);
             $pathValue = implode(DIRECTORY_SEPARATOR, $part);
@@ -46,12 +47,17 @@ class GUI_Breadcrumb extends GUI_Module
             $url->setParam('path', $pathValue);
 
             $this->Template->newBlock('breadcrumb');
+            if ($isFirst) {
+                $blockName = 'first';
+            } elseif ($isLast) {
+                $blockName = 'last';
+            } else {
+                $blockName = 'separator';
+            }
+            $this->Template->newBlock($blockName);
             $this->Template->setVar('piece', $piece);
             $this->Template->setVar('url', $url->getUrl());
-            if (!$isFirst && !$isLast) {
-                $this->Template->newBlock('separator');
-                $this->Template->leaveBlock();
-            }
+            $this->Template->leaveBlock();
         }
         $this->Template->leaveBlock();
     }

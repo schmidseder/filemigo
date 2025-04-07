@@ -1,0 +1,7 @@
+strong.breadcrumb {
+    display: flex;
+    align-items: center;
+}
+span.zuhause {
+    font-size: 50px;
+}

@@ -1,5 +1,15 @@
-<section id="{name}">
-    <strong>
-        <!-- BLOCK breadcrumb --><a href="{url}">{piece}</a><!-- BLOCK separator --> >> <!-- END separator --><!-- END breadcrumb -->
+<section id="{name}" >
+    <strong class="breadcrumb">
+        <!-- BLOCK breadcrumb -->
+            <!-- BLOCK first -->
+                    <a href="{url}"><span class="material-symbols-outlined zuhause">home</span></a>
+            <!-- END first -->
+            <!-- BLOCK separator -->
+                    <span class="material-symbols-outlined">arrow_right</span><a href="{url}">{piece}</a>
+            <!-- END separator -->
+            <!-- BLOCK last -->
+                    <span class="material-symbols-outlined">arrow_right</span><span>{piece}</span>
+            <!-- END last -->
+        <!-- END breadcrumb -->
     </strong>
 </section>
