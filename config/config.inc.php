@@ -33,6 +33,7 @@ use filemigo\config\Stage;
 /** Server configs **/
 $serverName = ($_SERVER['SERVER_NAME'] ??= gethostname());
 switch($serverName) {
+	case 'localhost':
     case 'dev.local':
         #Develop box
         $stage = Stage::develop;
