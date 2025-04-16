@@ -1,12 +1,14 @@
 <?php
     namespace filemigo;
+	
 
     const DIR_CONFIGS_ROOT = __DIR__.'/config';
+	
     require_once DIR_CONFIGS_ROOT.'/config.inc.php';
     require_once '../pool/pool.lib.php';
-
+	
     $config = require DIR_CONFIGS_ROOT . '/filemigo.inc.php';
-
+	
 //    if (IS_TESTSERVER) {
 //        ini_set('session.gc_maxlifetime', 10);
 //        ini_set('session.cookie_lifetime', 10);
@@ -30,8 +32,9 @@
     try {
         $App->setup([
             'application.name' => 'filemigo',
-            'application.title' => 'Filemigo - Simple Web File Manager',
+            'application.title' => 'Filemigo - Simple Web File Browser',
             'application.launchModule' => $launchModule,
+			// 'memcached.servers' => 'memcached:11211'
         ]);
 
         $App->render();
