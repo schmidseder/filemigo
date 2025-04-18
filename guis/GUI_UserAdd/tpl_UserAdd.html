@@ -1,0 +1,32 @@
+<section id="{name}">
+
+    <form method="post" action="[GUI_Url]">
+        <label for="user">Benutzername</label>
+        <input
+                type="text"
+                id="user"
+                name="user"
+                placeholder="Ihr Benutzername"
+                autocomplete="username"
+                required
+        >
+
+        <label for="password">Passwort</label>
+        <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Ihr Passwort"
+                autocomplete="current-password"
+                required
+        >
+
+        <button type="submit">Generate Hash</button>
+    </form>
+
+    <!-- BLOCK resultBlock -->
+    <pre>
+        '{user}' => '{password_hash}',
+    </pre>
+    <!-- END resultBlock -->
+</section>

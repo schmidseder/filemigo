@@ -12,7 +12,7 @@ return [
     ],
     */
     'FMG_USERS' => [
-        'admin' => '$2y$10$0k2zlQZ435c7DqONv/duieOxFV2BMlV/vmwnXJ0mxV5sK855FWu9m' // juggler
+        'admin' => '$2y$10$0k2zlQZ435c7DqONv/duieOxFV2BMlV/vmwnXJ0mxV5sK855FWu9m',// juggler
     ],
     'FMG_ZIP_DIR' => getenv('filemigo_zip')
 ];
