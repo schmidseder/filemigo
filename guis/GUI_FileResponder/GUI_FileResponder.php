@@ -1,4 +1,20 @@
 <?php
+/**
+ * Copyright (C) 2025 schmidseder.net
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 namespace filemigo\guis\GUI_FileResponder;
 
@@ -20,15 +36,9 @@ class GUI_FileResponder extends GUI_Module
     private bool $outputURL = false;
 
     /**
-     * Attributes for the script tag of the assoziated javascript file/class for this module.
-     *
-     * @var array|string[]
-     */
-
-    /**
      * @var int
      */
-    protected int $superglobals = Input::GET|Input::POST;
+    protected int $superglobals = Input::GET | Input::POST;
 
     /**
      * @var array|string[]
@@ -38,15 +48,12 @@ class GUI_FileResponder extends GUI_Module
     ];
 
     protected array $inputFilter = [
-        'pathKey'    => [ DataType::ALPHANUMERIC, 'path'],
-        'path'       => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
-        'use'        => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, ''],
+        'pathKey' => [DataType::ALPHANUMERIC, 'path'],
+        'path' => [DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
+        'use' => [DataType::ALPHANUMERIC_SPACE_PUNCTUATION, ''],
     ];
 
-    protected function provision(): void
-    {
-
-    }
+    protected function provision(): void {}
 
     protected function prepare(): void
     {
@@ -65,8 +72,7 @@ class GUI_FileResponder extends GUI_Module
         if ($this->outputFile) {
             $this->openFile($path);
             $this->disable();
-        }
-        else if ($this->outputURL) {
+        } elseif ($this->outputURL) {
             $src = $this->getSrc($path);
             $this->Template->setVar('src', $src);
         }
@@ -83,9 +89,8 @@ class GUI_FileResponder extends GUI_Module
         return $url->getUrl();
     }
 
-
     #[NoReturn]
-    private function openFile(string $path) : void
+    private function openFile(string $path): void
     {
         $path = ltrim($path, DIRECTORY_SEPARATOR);
         $filepath = addEndingSlash($this->getRootDirectory()) . $path;
@@ -127,12 +132,12 @@ class GUI_FileResponder extends GUI_Module
         return $this->rootDirectory;
     }
 
-    public function setOutputFile(bool $outputFile=true) : void
+    public function setOutputFile(bool $outputFile = true): void
     {
         $this->outputFile = $outputFile;
     }
 
-    public function setOutputURl(bool $outputURL=true) : void
+    public function setOutputURl(bool $outputURL = true): void
     {
         $this->outputURL = $outputURL;
     }

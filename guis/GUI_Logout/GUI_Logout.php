@@ -1,5 +1,20 @@
 <?php
-
+/**
+ * Copyright (C) 2025 schmidseder.net
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 namespace filemigo\guis\GUI_Logout;
 
@@ -22,7 +37,7 @@ class GUI_Logout extends GUI_Module
     ];
 
     protected array $inputFilter = [
-        'doLogout' => [DataType::INT]
+        'doLogout' => [DataType::INT],
     ];
 
     protected function registerAjaxCalls(): void
@@ -44,7 +59,7 @@ class GUI_Logout extends GUI_Module
             session_regenerate_id(true);
         }
         return [
-            'success' => $success
+            'success' => $success,
         ];
     }
 

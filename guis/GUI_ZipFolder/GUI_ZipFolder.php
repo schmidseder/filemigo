@@ -1,5 +1,20 @@
 <?php
-
+/**
+ * Copyright (C) 2025 schmidseder.net
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 namespace filemigo\guis\GUI_ZipFolder;
 
@@ -18,7 +33,7 @@ class GUI_ZipFolder extends GUI_Module
     /**
      * @var int
      */
-    protected int $superglobals = Input::POST|Input::GET;
+    protected int $superglobals = Input::POST | Input::GET;
 
     /**
      * @var array|string[]
@@ -36,7 +51,7 @@ class GUI_ZipFolder extends GUI_Module
     {
         if ($this->Weblication->hasFrame()) {
             $Frame = $this->Weblication->getFrame();
-            $urlJS =  $this->Weblication->findJavaScript('url.js', '', true);
+            $urlJS = $this->Weblication->findJavaScript('url.js', '', true);
             $Frame->getHeadData()->addJavaScript($urlJS);
         }
         parent::init($superglobals);
@@ -89,13 +104,12 @@ class GUI_ZipFolder extends GUI_Module
 
         $index = $this->Session->getVar('index');
         if ($index[$path]) {
-
             // $zipName = bin2hex(random_bytes(16)) . '.zip';
             $loggedInUser = $this->Session->getVar('loggedInUser');
             $now = new \DateTime();
             $nowStr = $now->format('Y-m-d_H_i_s_v');
             $zipName = $nowStr . '-' . $loggedInUser . '.zip';
-            $zipPath = addEndingSlash($zipDir) .  $zipName;
+            $zipPath = addEndingSlash($zipDir) . $zipName;
 
             $success = $this->zipFolder($path, $zipPath);
 
@@ -107,7 +121,7 @@ class GUI_ZipFolder extends GUI_Module
             'success' => $success,
             'message' => $message,
             'zipName' => $zipName,
-            'zipUrl'  => $zipUrl
+            'zipUrl' => $zipUrl,
         ];
     }
 
@@ -118,7 +132,7 @@ class GUI_ZipFolder extends GUI_Module
      * @param string $target path of the zip archive
      * @return bool
      */
-    private function zipFolder(string $path, string $target) : bool
+    private function zipFolder(string $path, string $target): bool
     {
         $root = $this->Weblication->getConfigValue('FMG_DATA_ROOT');
         $folder = $root . $path;
@@ -128,7 +142,6 @@ class GUI_ZipFolder extends GUI_Module
 
         $index = $this->Session->getVar('index');
         if ($zip->open($target, ZipArchive::CREATE)) {
-
             $zipRootDir = basename($target, ".zip");
             $zip->addEmptyDir($zipRootDir);
             foreach ($files as $file) {
@@ -179,7 +192,7 @@ class GUI_ZipFolder extends GUI_Module
      * @param $prefix
      * @return string
      */
-    private function removePrefix($fullString, $prefix) : string
+    private function removePrefix($fullString, $prefix): string
     {
         if (str_starts_with($fullString, $prefix)) {
             return substr($fullString, strlen($prefix)); // Entfernt den Prefix
@@ -187,7 +200,7 @@ class GUI_ZipFolder extends GUI_Module
         return $fullString; // Falls der Prefix nicht gefunden wird, bleibt der String unverändert
     }
 
-    public function getZipResponder() : GUI_FileResponder
+    public function getZipResponder(): GUI_FileResponder
     {
         $rootDir = $this->Weblication->getConfigValue('FMG_ZIP_DIR');
         $GUI_FileResponder = $this->Weblication->findComponent('zip-responder');
