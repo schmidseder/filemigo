@@ -226,7 +226,7 @@ class GUI_FileList extends GUI_Module
             $infos = [
                 'isDir' => is_dir($filepath),
                 'isFile' => is_file($filepath),
-                'size' => $this->readableFilesize($filepath),
+                'size' => $this->getFileSize($filepath, 0),
                 'last_modified' => date($format, filemtime($filepath)),
                 'last_access' => date($format, fileatime($filepath)),
                 //'mime_content_type' => mime_content_type($filepath),
@@ -261,29 +261,47 @@ class GUI_FileList extends GUI_Module
         }
     }
 
-    private function readableFilesize(string $filepath, int $decimals=2) : string
+    /**
+     * Gets the filesize of a file in a human readable format.
+     *
+     * @param string $filepath
+     * @param int $decimals
+     * @return string
+     */
+    private function getFileSize(string $filepath, int $decimals=2) : string
     {
         if (!is_file($filepath)) {
             return '';
         }
-
         $bytes = filesize($filepath);
+        $formattedFileSize = $this->formatFileSize($bytes, $decimals);
 
-        return $bytes;
-//
-//        if (!$bytes) {
-//            return '';
-//        }
-//        if (!is_numeric($bytes) || $bytes < 0) {
-//            return '';
-//        }
-//
-//        // $factor = floor(log($bytes, 1024));
-//        $factor = floor((strlen($bytes) - 1) / 3);
-//        if ($factor > 0) {
-//            $unitChars = 'KMGT';
-//        }
-//        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . $unitChars[$factor - 1] . 'B';
+        return $formattedFileSize;
+    }
+
+    /**
+     * Format a file size in bytes into a human readable format.
+     *
+     * @param int $bytes
+     * @param int $decimals
+     * @return string
+     */
+    private function formatFileSize(int $bytes, int $decimals=2) : string
+    {
+        ['decimal_separator' => $decimal_separator, 'thousands_separator' => $thousands_separator ] = $this->Weblication->getDefaultFormat('number');
+
+        if ($bytes >= 1073741824) { // GB (1024^3)
+            $size = number_format($bytes / 1073741824, $decimals, $decimal_separator, $thousands_separator);
+            return "$size GB";
+        } elseif ($bytes >= 1048576) { // MB (1024^2)
+            $size = number_format($bytes / 1048576, $decimals, $decimal_separator, $thousands_separator);;
+            return "$size MB";
+        } elseif ($bytes >= 1024) { // KB (1024)
+            $size = number_format($bytes / 1024, $decimals, $decimal_separator, $thousands_separator);
+            return "$size KB";
+        } else {
+            return "$bytes Bytes";
+        }
     }
 
     private function getDirectoryContent(string $path): array
