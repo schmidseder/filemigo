@@ -1,10 +1,10 @@
 <?php
 namespace filemigo\guis\GUI_UserAdd;
 
-use filemigo\guis\GUI_ZipFolder\GUI_ZipFolder;
 use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
 use pool\classes\GUI\GUI_Module;
+use pool\classes\Core\Url;
 
 class GUI_UserAdd extends GUI_Module
 {
@@ -21,8 +21,8 @@ class GUI_UserAdd extends GUI_Module
     ];
 
     protected array $inputFilter = [
-        'user' => [ DataType::ALPHANUMERIC, ''],
-        'password' => [ DataType::ALPHANUMERIC, ''],
+        'generated-user' => [ DataType::ALPHANUMERIC, ''],
+        'generated-password' => [ DataType::ALPHANUMERIC, ''],
     ];
 
     protected function prepare(): void
@@ -31,21 +31,22 @@ class GUI_UserAdd extends GUI_Module
 
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
+                $user = $this->Input->getAsString('generated-user');
+                $password = $this->Input->getAsString('generated-password');
 
-                $user = $this->Input->getAsString('user');
-                $password = $this->Input->getAsString('password');
-
-                $this->Template->newBlock('resultBlock');
-                $this->Template->setVar('user', $user);;
-                $this->Template->setVar('password_hash', password_hash($password, PASSWORD_DEFAULT));
-
-
+                $this->Session->setVar('generated_user', [ $user, password_hash($password, PASSWORD_DEFAULT) ]);
 
                 // reload page
-//                $Url = new Url();
-//                $Url->reload();
+                $Url = new Url();
+                $Url->reload();
         }
 
+        if ($this->Session->exists('generated_user')) {
+            $this->Template->newBlock('resultBlock');
+            $this->Template->setVar('user', $this->Session->getVar('generated_user')[0]);
+            $this->Template->setVar('password_hash', $this->Session->getVar('generated_user')[1]);
 
+            $this->Session->delVar('generated_user');
+        }
     }
 }
