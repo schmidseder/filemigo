@@ -29,14 +29,19 @@
     $loggedIn = $App->Session->getVar('loggedIn', false);
     $launchModule = $loggedIn ? GUI_Frame::class : GUI_Login::class;
 
+	$settings = [
+		'application.name' => 'filemigo',
+		'application.title' => 'Filemigo - Simple Web File Browser',
+		'application.launchModule' => $launchModule,
+		// 'memcached.servers' => 'memcached:11211'
+    ];
+	
+	$memcachedServers = getenv('filemigo_memcached');
+	if ($memcachedServers) {
+		$settings['memcached.servers'] = $memcachedServers;
+	}
     try {
-        $App->setup([
-            'application.name' => 'filemigo',
-            'application.title' => 'Filemigo - Simple Web File Browser',
-            'application.launchModule' => $launchModule,
-			// 'memcached.servers' => 'memcached:11211'
-        ]);
-
+        $App->setup($settings);
         $App->render();
     }
     catch (Exception $e) {
