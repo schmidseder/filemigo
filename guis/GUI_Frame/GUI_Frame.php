@@ -1,4 +1,20 @@
 <?php
+/**
+ * Copyright (C) 2025 schmidseder.net
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 namespace filemigo\guis\GUI_Frame;
 
@@ -17,21 +33,21 @@ class GUI_Frame extends GUI_CustomFrame
     ];
 
     protected array $inputFilter = [
-        'path'      => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR]
+        'path' => [DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
     ];
 
     /**
      * Templates laden
      */
-    public function loadFiles() : static
+    public function loadFiles(): static
     {
         parent::loadFiles();
 
         $appCSS = $this->Weblication->findStyleSheet('app.css');
         $this->getHeadData()->addStyleSheet($appCSS);
 
-         $appJS = $this->Weblication->findJavaScript('app.js');
-         $this->addScriptFileAtTheEnd($appJS);
+        $appJS = $this->Weblication->findJavaScript('app.js');
+        $this->addScriptFileAtTheEnd($appJS);
 
         // $this->getHeadData()->addStyleSheet('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 

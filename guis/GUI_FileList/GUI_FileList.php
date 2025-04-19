@@ -1,4 +1,20 @@
 <?php
+/**
+ * Copyright (C) 2025 schmidseder.net
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 namespace filemigo\guis\GUI_FileList;
 
@@ -13,22 +29,21 @@ class GUI_FileList extends GUI_Module
 {
 
     protected array $icons = [
-        'PDF'           => [ 'type_name' => 'picture_as_pdf', 'color' => 'red' ],
-        'EXCEL'         => [ 'type_name' => 'grid_on', 'color' => 'green' ],
-        'WORD'          => [ 'type_name' => 'description', 'color' => 'blue' ],
-        'TEXT'          => [ 'type_name' => 'text_snippet', 'color' => 'gray' ],
-        'DIRECTORY'     => [ 'type_name' => 'folder', 'color' => 'gold' ],
-        'HELP'          => [ 'type_name' => 'help_outline', 'color' => 'blue' ],
-        'EMPTY'         => [ 'type_name' => 'hourglass_empty', 'color' => 'lightgray' ],
-        'README'        => [ 'type_name' => 'info', 'color' => 'cornflowerblue' ],
-        'ARTICLE'       => [ 'type_name' => 'article', 'color' => 'darkgray' ],
-        'JPEG'          => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
-        'GIF'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
-        'PNG'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
-        'SVG'           => [ 'type_name' => 'image', 'color' => 'darkgoldenrod' ],
-        'ANIMATION'     => [ 'type_name' => 'animation', 'color' => 'purple' ],
-        'UNKNOWN'       => [ 'type_name' => 'unknown_document', 'color' => 'lightgray' ],
-
+        'PDF' => ['type_name' => 'picture_as_pdf', 'color' => 'red'],
+        'EXCEL' => ['type_name' => 'grid_on', 'color' => 'green'],
+        'WORD' => ['type_name' => 'description', 'color' => 'blue'],
+        'TEXT' => ['type_name' => 'text_snippet', 'color' => 'gray'],
+        'DIRECTORY' => ['type_name' => 'folder', 'color' => 'gold'],
+        'HELP' => ['type_name' => 'help_outline', 'color' => 'blue'],
+        'EMPTY' => ['type_name' => 'hourglass_empty', 'color' => 'lightgray'],
+        'README' => ['type_name' => 'info', 'color' => 'cornflowerblue'],
+        'ARTICLE' => ['type_name' => 'article', 'color' => 'darkgray'],
+        'JPEG' => ['type_name' => 'image', 'color' => 'darkgoldenrod'],
+        'GIF' => ['type_name' => 'image', 'color' => 'darkgoldenrod'],
+        'PNG' => ['type_name' => 'image', 'color' => 'darkgoldenrod'],
+        'SVG' => ['type_name' => 'image', 'color' => 'darkgoldenrod'],
+        'ANIMATION' => ['type_name' => 'animation', 'color' => 'purple'],
+        'UNKNOWN' => ['type_name' => 'unknown_document', 'color' => 'lightgray'],
     ];
 
     private null|array $branches = null;
@@ -36,7 +51,7 @@ class GUI_FileList extends GUI_Module
     /**
      * @var int
      */
-    protected int $superglobals = Input::GET|Input::POST;
+    protected int $superglobals = Input::GET | Input::POST;
 
     /**
      * @var array|string[]
@@ -46,7 +61,7 @@ class GUI_FileList extends GUI_Module
     ];
 
     protected array $inputFilter = [
-        'path'      => [ DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
+        'path' => [DataType::ALPHANUMERIC_SPACE_PUNCTUATION, DIRECTORY_SEPARATOR],
 //        'frameHeight'   => [ DataType::INT ],
 //        'index'         => [ DataType::INT ]
     ];
@@ -57,8 +72,7 @@ class GUI_FileList extends GUI_Module
 
         if (!$this->Session->exists('structure')) {
             // Struktur einlesen
-            $readDirectoryStructure = static function(string $directory) use (&$readDirectoryStructure): array
-            {
+            $readDirectoryStructure = static function (string $directory) use (&$readDirectoryStructure): array {
                 $result = []; // Das Array, das die Struktur speichert
 
                 // Sicherstellen, dass das Verzeichnis existiert
@@ -88,14 +102,12 @@ class GUI_FileList extends GUI_Module
                 return $result;
             };
 
-            $index = [DIRECTORY_SEPARATOR=> true];
+            $index = [DIRECTORY_SEPARATOR => true];
 
-            $loopStructure = static function (array $array, string $dir, string $path='') use (&$loopStructure, &$index)
-            {
+            $loopStructure = static function (array $array, string $dir, string $path = '') use (&$loopStructure, &$index) {
                 foreach ($array as $key => $value) {
-
                     if (is_array($value)) {
-                        if (is_dir( $dir . DIRECTORY_SEPARATOR . $key)) {
+                        if (is_dir($dir . DIRECTORY_SEPARATOR . $key)) {
                             $name = $key;
                             // is directory
                             $index[$path . DIRECTORY_SEPARATOR . $name] = true;
@@ -103,10 +115,10 @@ class GUI_FileList extends GUI_Module
                             // all dirs
                             $loopStructure($value, $dir . DIRECTORY_SEPARATOR . $key, $path . DIRECTORY_SEPARATOR . $name);
                         }
-                    } else if(is_string($value)) {
-                            $name = $value;
-                            // is file
-                            $index[$path . DIRECTORY_SEPARATOR . $name] = false;
+                    } elseif (is_string($value)) {
+                        $name = $value;
+                        // is file
+                        $index[$path . DIRECTORY_SEPARATOR . $name] = false;
                     }
                 }
             };
@@ -180,7 +192,7 @@ class GUI_FileList extends GUI_Module
 
         $directories = array_keys($list);
         if (count($directories) > 0) {
-            $directories = array_filter($directories, static function ($directory) use($list) {
+            $directories = array_filter($directories, static function ($directory) use ($list) {
                 return is_array($list[$directory]);
             });
             if (count($directories) > 1) {
@@ -198,7 +210,7 @@ class GUI_FileList extends GUI_Module
             }
         }
 
-        $content = [ ...$directories, ...$files];
+        $content = [...$directories, ...$files];
 
         $format = $this->Weblication->getDefaultFormat('php.date.time');
 
@@ -226,7 +238,7 @@ class GUI_FileList extends GUI_Module
             $infos = [
                 'isDir' => is_dir($filepath),
                 'isFile' => is_file($filepath),
-                'size' => $this->readableFilesize($filepath),
+                'size' => $this->getFileSize($filepath, 0),
                 'last_modified' => date($format, filemtime($filepath)),
                 'last_access' => date($format, fileatime($filepath)),
                 //'mime_content_type' => mime_content_type($filepath),
@@ -261,29 +273,47 @@ class GUI_FileList extends GUI_Module
         }
     }
 
-    private function readableFilesize(string $filepath, int $decimals=2) : string
+    /**
+     * Gets the filesize of a file in a human readable format.
+     *
+     * @param string $filepath
+     * @param int $decimals
+     * @return string
+     */
+    private function getFileSize(string $filepath, int $decimals = 2): string
     {
         if (!is_file($filepath)) {
             return '';
         }
-
         $bytes = filesize($filepath);
+        $formattedFileSize = $this->formatFileSize($bytes, $decimals);
 
-        return $bytes;
-//
-//        if (!$bytes) {
-//            return '';
-//        }
-//        if (!is_numeric($bytes) || $bytes < 0) {
-//            return '';
-//        }
-//
-//        // $factor = floor(log($bytes, 1024));
-//        $factor = floor((strlen($bytes) - 1) / 3);
-//        if ($factor > 0) {
-//            $unitChars = 'KMGT';
-//        }
-//        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . $unitChars[$factor - 1] . 'B';
+        return $formattedFileSize;
+    }
+
+    /**
+     * Format a file size in bytes into a human readable format.
+     *
+     * @param int $bytes
+     * @param int $decimals
+     * @return string
+     */
+    private function formatFileSize(int $bytes, int $decimals = 2): string
+    {
+        ['decimal_separator' => $decimal_separator, 'thousands_separator' => $thousands_separator] = $this->Weblication->getDefaultFormat('number');
+
+        if ($bytes >= 1073741824) { // GB (1024^3)
+            $size = number_format($bytes / 1073741824, $decimals, $decimal_separator, $thousands_separator);
+            return "$size GB";
+        } elseif ($bytes >= 1048576) { // MB (1024^2)
+            $size = number_format($bytes / 1048576, $decimals, $decimal_separator, $thousands_separator);;
+            return "$size MB";
+        } elseif ($bytes >= 1024) { // KB (1024)
+            $size = number_format($bytes / 1024, $decimals, $decimal_separator, $thousands_separator);
+            return "$size KB";
+        } else {
+            return "$bytes Bytes";
+        }
     }
 
     private function getDirectoryContent(string $path): array
@@ -298,7 +328,7 @@ class GUI_FileList extends GUI_Module
             }
             $pieces = explode(DIRECTORY_SEPARATOR, $trimmedPath);
 
-             return array_reduce($pieces, static function ($carry, $key) {
+            return array_reduce($pieces, static function ($carry, $key) {
                 return $carry[$key] ?? [];
             }, $structure);
         }
@@ -311,7 +341,7 @@ class GUI_FileList extends GUI_Module
         return preg_replace('/[^a-zA-Z0-9äöüÄÖÜß _\-]/u', '', $path);
     }
 
-    private function type(string $filepath) : string
+    private function type(string $filepath): string
     {
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $finfo_mime = $finfo->file($filepath, FILEINFO_MIME);
@@ -353,25 +383,13 @@ class GUI_FileList extends GUI_Module
         return $return;
     }
 
-    /*
-    protected array $cssFiles = [
-    ];
-
-
-
-    protected function registerAjaxCalls(): void
-    {
-
-    }
-    */
-
     /**
      * Checks, if the entry is allowed to be displayed according to the branches definitions.
      *
      * @param string $entry
      * @return bool
      */
-    private function displayAllowed(string $entry) : bool
+    private function displayAllowed(string $entry): bool
     {
         // no definition - all entries will be displayed
         if ($this->branches === null) {

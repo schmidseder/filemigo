@@ -1,0 +1,40 @@
+<section id="{name}">
+
+    <form method="post" action="[GUI_Url]" autocomplete="off"autocomplete="off">
+        <label for="generate-user">Benutzername</label>
+        <input
+                type="text"
+                id="generated-user"
+                name="generated-user"
+                placeholder="Bitte einen Benutzernamen eingeben"
+                required
+                autocomplete="off"
+        >
+
+        <label for="generate-password">Passwort</label>
+        <input
+                type="text"
+                id="generated-password"
+                name="generated-password"
+                placeholder="Bitte ein sicheres Passwort eingeben"
+                required
+                autocomplete="off"
+        >
+
+        <button type="submit">Passwort-Hash generieren</button>
+    </form>
+
+    <!-- BLOCK resultBlock -->
+    <div>
+        <pre><code>'{user}' => '{password_hash}',</code></pre>
+        <button id="copy-button">
+            <span class="material-symbols-outlined">content_copy</span>
+            <span class="button-text">Zeile kopieren</span>
+        </button>
+    </div>
+    <div class="instructions">
+        Bitte die generierte Zeile kopieren und in die Datei <strong>config/filemigo.inc.php</strong> in den Abschnitt FMG_USERS einfügen.<br>
+        Jeder Benutzername darf nur einmal verwendet werden.
+    </div>
+    <!-- END resultBlock -->
+</section>
