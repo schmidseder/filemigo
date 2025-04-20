@@ -1,43 +1,44 @@
 # Filemigo
-Filemigo ist ein einfacher **Web File Browser**.
+Filemigo is a simple **web-based file browser**.
 
-Deine Dateien kannst du damit deinen Freunden und ausgewählten Personen hinter einem sicheren Login zur Verfügung stellen.
+It lets you securely share files with friends or selected users through a protected login.
 
-Wenn du bereits eine Webseite bei einem Webhoster besitzt, ist die Wahrscheinlichkeit, das Filemigo läuft, sehr hoch, da es in PHP programmiert ist.
+If you already have a website hosted by a typical web hosting provider, chances are high that  
+Filemigo will work out of the box — it's built with PHP and designed for easy deployment.
+
 
 ## Installation
-### Voraussetzungen
-- PHP8.3
-- Filemigo funktioniert zur Sicherheit nur über HTTPS
+### Requirements
+- PHP 8.3
+- For security reasons, Filemigo only works via HTTPS
 
-### Manuelle Installation auf Webspace
+### Manual Installation on Webspace
 Download Filemigo:  
-[`https://github.com/schmidseder/filemigo/archive/refs/heads/main.zip`](`https://github.com/schmidseder/filemigo/archive/refs/heads/main.zip`)
+[`https://github.com/schmidseder/filemigo/archive/refs/heads/main.zip`](https://github.com/schmidseder/filemigo/archive/refs/heads/main.zip)
 
 Download POOL:  
-[`https://github.com/schmidseder/pool/archive/refs/heads/develop.zip`](`https://github.com/schmidseder/pool/archive/refs/heads/develop.zip`)
+[`https://github.com/schmidseder/pool/archive/refs/heads/develop.zip`](https://github.com/schmidseder/pool/archive/refs/heads/develop.zip)
 
-Beide ZIP-Archive entpacken und Verzeichnisse umbenennnen:  
+Unzip both archives and rename the directories:  
 `mv filemigo-main filemigo`  
 `mv pool-develop pool`
 
-In das Hauptverzeichnis des Webspace kopieren (hochladen).  
-Zusätzlich zwei Verzeichnisse `data` und `tmp` parallel anlegen.  
-In das `data` Verzeichnis werden die Dateien gespeichert, auf die man über Filemigo Zugriff hat.  
-Das `tmp` Verzeichnis wird zum kurzzeitigen Speichern der generierten ZIP-Archive verwendet.
+Upload all files to the root directory of your webspace.  
+Next, create two additional directories at the same level: `data` and `tmp`.  
+The `data` directory stores the files that are accessible through Filemigo.  
+The `tmp` directory is used to temporarily hold generated ZIP archives.
 
 ```
 /                       
-├── public            # Öffentliches Hauptverzeichnis  
+├── public            # Public root directory 
 │   ├── filemigo
 │   └── pool
-├── data              # Datenverzeichnis (nicht öffentlich zugänglich)                 
-└── tmp               # Temp-Verzeichnis (nicht öffenttlich zugänglich)  
+├── data              # Data directory (not publicly accessible)                 
+└── tmp               # Temp directory (not publicly accessible)  
 ```
-
-## Technologien
-- Frontend: PicoCSS, Vanilla Javascript
+## Technologies
+- Frontend: PicoCSS, Vanilla JavaScript
 - Backend: PHP POOL Framework
 
-## Lizenz
+## License
 [GPLv3](LICENSE)
