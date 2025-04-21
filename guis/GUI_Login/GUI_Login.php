@@ -67,7 +67,7 @@ class GUI_Login extends GUI_CustomFrame
 
         $this->Template->setVar('name', $this->getName());
 
-        $this->Template->setVar('FMG_TITLE', $this->Weblication->getConfigValue('FMG_TITLE'));
+        $this->Template->setVar('FMG_HEADER', $this->Weblication->getConfigValue('FMG_HEADER'));
         $this->Template->setVar('FMG_FOOTER', $this->Weblication->getConfigValue('FMG_FOOTER'));
 
         switch ($_SERVER['REQUEST_METHOD']) {

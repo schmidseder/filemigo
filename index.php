@@ -18,6 +18,7 @@
 
 namespace filemigo;
 
+const APPLICATION_NAME = 'filemigo';
 const DIR_CONFIGS_ROOT = __DIR__ . '/config';
 
 require_once DIR_CONFIGS_ROOT . '/config.inc.php';
@@ -26,6 +27,20 @@ require_once '../pool/pool.lib.php';
 if (!file_exists(DIR_CONFIGS_ROOT . '/filemigo.inc.php')) {
     die ('Please rename `config/example-filemigo.inc.php` to `config/filemigo.inc.php` and adjust the configurations within it.');
 }
+
+if (!getenv('filemigo_data') ) {
+    $data = realpath(DIR_DOCUMENT_ROOT . '/../data');
+    if ($data) {
+        putenv('filemigo_data=' . $data);
+    }
+}
+if (!getenv('filemigo_zip') ) {
+    $tmp = realpath(DIR_DOCUMENT_ROOT . '/../tmp');
+    if ($tmp) {
+        putenv('filemigo_zip=' . $tmp);
+    }
+}
+
 $config = require DIR_CONFIGS_ROOT . '/filemigo.inc.php';
 
 //    if (IS_TESTSERVER) {
@@ -49,9 +64,9 @@ $loggedIn = $App->Session->getVar('loggedIn', false);
 $launchModule = $loggedIn ? GUI_Frame::class : GUI_Login::class;
 
 $settings = [
-    'application.name' => 'filemigo',
-    'application.title' => 'Filemigo - Simple Web File Browser',
-    'application.launchModule' => $launchModule,
+    'application.name'          => APPLICATION_NAME,
+    'application.title'         => $App->getConfigValue('FMG_TITLE','Unkwown'),
+    'application.launchModule'  => $launchModule,
     // 'memcached.servers' => 'memcached:11211'
 ];
 

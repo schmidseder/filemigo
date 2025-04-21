@@ -40,9 +40,9 @@ class FilemigoApp extends Weblication
         $this->config = $config;
     }
 
-    public function getConfigValue(string $key)
+    public function getConfigValue(string $key, $default = null)
     {
-        return $this->config[$key] ?? null;
+        return $this->config[$key] ?? $default;
     }
 
     public function setConfigValue(string $key, $value): void

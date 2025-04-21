@@ -56,7 +56,7 @@ class GUI_Frame extends GUI_CustomFrame
 
     public function prepare(): void
     {
-        $this->Template->setVar('FMG_TITLE', $this->Weblication->getConfigValue('FMG_TITLE'));
+        $this->Template->setVar('FMG_HEADER', $this->Weblication->getConfigValue('FMG_HEADER'));
         $this->Template->setVar('FMG_FOOTER', $this->Weblication->getConfigValue('FMG_FOOTER'));
 
 //        /** @var GUI_ZipFolder $GUI_ZipFolder */
