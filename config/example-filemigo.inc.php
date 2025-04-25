@@ -20,5 +20,6 @@ return [
         /* ************************************************************************************** */
     ],
     'FMG_DATA_ROOT' => getenv('filemigo_data'),
-    'FMG_ZIP_DIR'   => getenv('filemigo_zip')
+    'FMG_ZIP_DIR'   => getenv('filemigo_zip'),
+    'FMG_LIST_IMAGES'     => true,
 ];

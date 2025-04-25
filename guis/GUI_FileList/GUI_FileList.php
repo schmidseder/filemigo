@@ -260,7 +260,14 @@ class GUI_FileList extends GUI_Module
                 //'mime_content_type' => mime_content_type($filepath),
                 //'finfo_mime' => $finfo_mime,
                 'type' => $type,
+                'extension' => is_file($filepath) ? strtolower($pathinfo['extension']) : false
             ];
+
+            if (!$this->Weblication->getConfigValue('FMG_LIST_IMAGES', true)) {
+                if ($infos['extension'] && in_array($infos['extension'], IMAGE_FILE_EXTENSIONS)) {
+                    continue;
+                }
+            }
 
             $infos = [...$infos, ...$this->icons[$type]];
 
