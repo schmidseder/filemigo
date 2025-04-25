@@ -68,7 +68,6 @@ class GUI_PictureGallery extends GUI_Module {
         $GUI_FileResponder->setRootDirectory($this->rootDirectory);
         $GUI_FileResponder->setOutputFile(true);
 
-
         $public = (bool) $this->getVar('public');
         $this->Template->setVar('name', $this->getName());
 
@@ -82,9 +81,20 @@ class GUI_PictureGallery extends GUI_Module {
         }
 
         $absoluteBaseDirectory = addEndingSlash($this->rootDirectory)
-                               . addEndingSlash(ltrim($baseDirectory, DIRECTORY_SEPARATOR));
-//        $internals = $this->getInternalParams();
-//        $createDir = isset($internals['createDir']) && (boolean)$internals['createDir'];
+                               . ltrim($baseDirectory, DIRECTORY_SEPARATOR);
+
+        // avoid reading files outside the root directory
+        if (!str_starts_with(realpath($absoluteBaseDirectory),realpath($this->rootDirectory))) {
+            http_response_code(403);
+            die ('Forbidden');
+            exit;
+        }
+
+        // return immediately
+        if (is_file(realpath($absoluteBaseDirectory))) {
+            return;
+        }
+
         if (!file_exists($absoluteBaseDirectory)) {
             $this->Template->newBlock('galleryErrorBlock');
             $this->Template->setVar('errorMessage', "Directory not found");
@@ -97,7 +107,7 @@ class GUI_PictureGallery extends GUI_Module {
         $upperCaseImageFileExtensions = array_map(function($extension)  { return strtoupper($extension); }, $this->imageFileExtensions);
         $extensions = array_merge($lowerCaseImageFileExtensions, $upperCaseImageFileExtensions);
 
-        $imagePathPattern = $absoluteBaseDirectory . '*.{' . implode(',', $extensions) . '}';
+        $imagePathPattern = addEndingSlash($absoluteBaseDirectory) . '*.{' . implode(',', $extensions) . '}';
 
         $images = glob($imagePathPattern, GLOB_BRACE);
 
