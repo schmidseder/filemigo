@@ -137,6 +137,10 @@ class GUI_FileList extends GUI_Module
 
     protected function prepare(): void
     {
+//        $translator = $this->Weblication->getTranslator();
+//        $translator->swapLangList('de_DE');
+//        echo $translator->getTranslation('filesize');
+
         $index = $this->Session->getVar('index');
         $path = $this->Input->getVar('path');
 
