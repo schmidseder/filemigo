@@ -24,6 +24,7 @@ use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
 use pool\classes\GUI\GUI_Module;
 use pool\classes\Core\Url;
+use const filemigo\DIR_CONFIGS_ROOT;
 
 class GUI_FileList extends GUI_Module
 {
@@ -156,6 +157,17 @@ class GUI_FileList extends GUI_Module
         $GUI_Breadcrumb->setVar('displayPath', $path);
 
         $isFile = $index[$path] === false;
+
+        // user config file
+        $loggedInUser = $this->Session->getVar('loggedInUser');
+        $userConfigFile = addEndingSlash(DIR_CONFIGS_ROOT) . "$loggedInUser.inc.php";
+        if (is_file($userConfigFile)) {
+            $userConfig =  require $userConfigFile;
+
+            if (is_array($userConfig) && isset($userConfig['FMG_DATA_ROOT_BRANCHES'])) {
+                $this->Weblication->setConfigValue('FMG_DATA_ROOT_BRANCHES', $userConfig['FMG_DATA_ROOT_BRANCHES'] );
+            }
+        }
 
         $this->branches = $this->Weblication->getConfigValue('FMG_DATA_ROOT_BRANCHES');
         if ($this->branches !== null) {
