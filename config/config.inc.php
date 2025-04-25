@@ -127,6 +127,13 @@ define('IS_PRODUCTION', $stage === Stage::production);
 define('DEFAULT_SESSION_LIFETIME', $defaultSessionDuration);
 define('DIR_POOL_ROOT', $PoolRoot);
 
+/**
+ * -------------------------------
+ * Constant Exports (for the application)
+ * -------------------------------
+ */
+const IMAGE_FILE_EXTENSIONS = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'svg', 'apng', 'avif', 'bmp', 'ico'];
+
 // Combined environment flag
 const IS_TESTSERVER = (IS_DEVELOP || IS_STAGING);
 

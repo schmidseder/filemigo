@@ -70,6 +70,7 @@ class GUI_Frame extends GUI_CustomFrame
         /** @var GUI_PictureGallery $GUI_PictureGallery */
         $GUI_PictureGallery = $this->Weblication->findComponent('pictures');
         if ($GUI_PictureGallery) {
+            $GUI_PictureGallery->setImageFileExtensions(IMAGE_FILE_EXTENSIONS);
             $GUI_PictureGallery->setRootDirectory($rootDir);
             $GUI_PictureGallery->setVar('pictures', $path);
         }

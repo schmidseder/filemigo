@@ -48,7 +48,17 @@ class GUI_PictureGallery extends GUI_Module {
         'frameHeight'     => [ DataType::INT, 200]
     ];
 
-    protected array $imageFileExtensions = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'svg'];
+    protected array $imageFileExtensions = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'svg', 'apng', 'avif', 'bmp', 'ico'];
+
+    public function getImageFileExtensions(): array
+    {
+        return $this->imageFileExtensions;
+    }
+
+    public function setImageFileExtensions(array $imageFileExtensions): void
+    {
+        $this->imageFileExtensions = $imageFileExtensions;
+    }
 
 
     protected function prepare(): void
