@@ -63,6 +63,11 @@ class GUI_Logout extends GUI_Module
         ];
     }
 
+    public function logout(): void
+    {
+        $this->doLogout();
+    }
+
     protected function prepare(): void
     {
         $this->Template->setVar('name', $this->getName());

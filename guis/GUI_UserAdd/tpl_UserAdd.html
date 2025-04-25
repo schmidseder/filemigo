@@ -1,7 +1,23 @@
 <section id="{name}">
+    <h1>Passwort-Hashes für Benutzer generieren</h1>
+    <div>
+        <p>
+        Auf dieser Seite können Sie Passwort Hashwerte generieren. Geben bitte Sie den gewünschten Benutzernamen und das gewünschte Passwort ein.<br>
+        Die generierte Zeile kopieren Sie bitte in die Datei <b>config/filemigo.inc.php</b> in den Bereich FMG_USERS an die markierte Stelle.<br>
+        <br>
+        Sie können beliebig viele Benutzer und Passwort-Hashs in die Konfigurationsdatei einfügen.<br>
+        Beachten Sie aber bitte: Benutzername dürfen <b>nicht</b> mehrmals vorkommen.<br>
+        <br>
+        <strong>WICHTIG:</strong> <br>
+            Entfernen Sie die Zeile mit dem User "filemigo" aus der filemigo.inc.php.<br>
+            Dieser darf aus Sicherheitsgründen in einer produktiven Installation nicht existieren.
+
+
+        </p>
+    </div>
 
     <form method="post" action="[GUI_Url]" autocomplete="off"autocomplete="off">
-        <label for="generate-user">Benutzername</label>
+        <label for="generated-user">Benutzername</label>
         <input
                 type="text"
                 id="generated-user"
@@ -11,9 +27,9 @@
                 autocomplete="off"
         >
 
-        <label for="generate-password">Passwort</label>
+        <label for="generated-password">Passwort</label>
         <input
-                type="text"
+                type="password"
                 id="generated-password"
                 name="generated-password"
                 placeholder="Bitte ein sicheres Passwort eingeben"

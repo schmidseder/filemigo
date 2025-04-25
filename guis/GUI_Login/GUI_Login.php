@@ -19,11 +19,13 @@
 namespace filemigo\guis\GUI_Login;
 
 use pool\classes\GUI\GUI_Module;
+use filemigo\guis\GUI_Logout\GUI_Logout;
 use filemigo\guis\GUI_ZipFolder\GUI_ZipFolder;
 use pool\classes\GUI\Builtin\GUI_CustomFrame;
 use pool\classes\Core\Input\Filter\DataType;
 use pool\classes\Core\Input\Input;
 use pool\classes\Core\Url;
+use const filemigo\APPLICATION_NAME;
 
 class GUI_Login extends GUI_CustomFrame
 {
@@ -106,6 +108,29 @@ class GUI_Login extends GUI_CustomFrame
                 // reload page
                 $Url = new Url();
                 $Url->clearQuery();
+
+                // Get user configuration
+                $users = $this->Weblication->getConfigValue('FMG_USERS', false);
+
+                // Check if users is a valid array
+                if (is_array($users)) {
+                    $userCount = count($users);
+
+                    // Security check: multiple users and the special "filemigo" user is still configured
+                    if ($userCount > 1 && isset($users[APPLICATION_NAME])) {
+                        /** @var GUI_Logout $GUI_Logout */
+                        $GUI_Logout = GUI_Module::createGUIModule(GUI_Logout::class, $this->Weblication, $this);
+                        $GUI_Logout->logout();
+
+                        die('Security alert: Please remove user "filemigo" from config/filemigo.inc.php.');
+                    }
+
+                    // If "filemigo" is the only configured user, redirect to add-user page
+                    if ($user === APPLICATION_NAME && $userCount === 1) {
+                        $Url->setParam('schema', 'user-add');
+                    }
+                }
+
                 $Url->reload();
         }
     }
