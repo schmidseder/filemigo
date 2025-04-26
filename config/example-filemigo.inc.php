@@ -1,16 +1,7 @@
 <?php
+namespace filemigo;
+
 return [
-    'FMG_TITLE'  => 'Filemigo',
-    'FMG_HEADER' => 'Filemigo - Simple Web File Browser',
-    'FMG_FOOTER' => 'schmidseder.net',
-    /*
-    'FMG_DATA_ROOT_BRANCHES' => [
-        'directory_one',
-        'directory_two',
-        'directory_three',
-        'file_four.pdf'
-    ],
-    */
     'FMG_USERS' => [
         /* ************************************************************************************** */
         /* Please add the line containing the user and the password hash here.                    */
@@ -19,7 +10,17 @@ return [
 
         /* ************************************************************************************** */
     ],
-    'FMG_DATA_ROOT' => getenv('filemigo_data'),
-    'FMG_ZIP_DIR'   => getenv('filemigo_zip'),
-    'FMG_LIST_IMAGES'     => true,
+    'FMG_TITLE'       => 'Filemigo',
+    'FMG_HEADER'      => 'Filemigo - Web File Browser',
+    'FMG_FOOTER'      => 'schmidseder.net',
+    'FMG_DATA_ROOT'   => ENVVAR_FILEMIGO_DATA,
+    'FMG_DATA_ROOT_BRANCHES' => FILEMIGO_ALL_DATA,
+//    'FMG_DATA_ROOT_BRANCHES' => [
+//        'directory_one',
+//        'directory_two',
+//        'directory_three',
+//        'file_four.pdf'
+//    ],
+    'FMG_ZIP_DIR'     => ENVVAR_FILEMIGO_ZIP,
+    'FMG_LIST_IMAGES' => true,
 ];

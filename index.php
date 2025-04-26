@@ -58,7 +58,11 @@ $App = FilemigoApp::getInstance();
 $App->startPHPSession();
 
 $loggedIn = $App->Session->getVar('loggedIn', false);
-# $launchModule = $loggedIn ? GUI_Frame::class : GUI_Login::class;
+
+define("filemigo\ENVVAR_FILEMIGO_DATA", getenv('filemigo_data'));
+define("filemigo\ENVVAR_FILEMIGO_ZIP", getenv('filemigo_zip'));
+const FILEMIGO_ALL_DATA = null;
+const FILEMIGO_NO_DATA = [];
 
 # global config
 $config = require DIR_CONFIGS_ROOT . '/filemigo.inc.php';
