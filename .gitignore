@@ -1,1 +1,8 @@
-config/filemigo.inc.php
+# ignore configuration file "filemigo.inc.php"
+/config/filemigo.inc.php
+
+# ignore user configuration files in directory "users"
+/config/users/
+
+# ignore test directory
+/tests/

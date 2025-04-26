@@ -18,6 +18,17 @@
 
 namespace filemigo;
 
+use Exception;
+
+use filemigo\classes\FilemigoApp;
+use filemigo\guis\GUI_Frame\GUI_Frame;
+use filemigo\guis\GUI_Login\GUI_Login;
+
+//    if (IS_TESTSERVER) {
+//        ini_set('session.gc_maxlifetime', 10);
+//        ini_set('session.cookie_lifetime', 10);
+//    }
+
 const APPLICATION_NAME = 'filemigo';
 const DIR_CONFIGS_ROOT = __DIR__ . '/config';
 
@@ -41,27 +52,40 @@ if (!getenv('filemigo_zip') ) {
     }
 }
 
-$config = require DIR_CONFIGS_ROOT . '/filemigo.inc.php';
-
-//    if (IS_TESTSERVER) {
-//        ini_set('session.gc_maxlifetime', 10);
-//        ini_set('session.cookie_lifetime', 10);
-//    }
-
-use Exception;
-
-use filemigo\classes\FilemigoApp;
-use filemigo\guis\GUI_Frame\GUI_Frame;
-use filemigo\guis\GUI_Login\GUI_Login;
-
 FilemigoApp::caching(IS_PRODUCTION);
 
 $App = FilemigoApp::getInstance();
 $App->startPHPSession();
-$App->setConfig($config);
 
 $loggedIn = $App->Session->getVar('loggedIn', false);
-$launchModule = $loggedIn ? GUI_Frame::class : GUI_Login::class;
+# $launchModule = $loggedIn ? GUI_Frame::class : GUI_Login::class;
+
+# global config
+$config = require DIR_CONFIGS_ROOT . '/filemigo.inc.php';
+
+# set launch module
+$launchModule = GUI_Login::class;
+if ($loggedIn) {
+    # set launch module for loggedIn users
+    $launchModule = GUI_Frame::class;
+
+    # user config
+    $usersConfigDir = 'users';
+    if (is_dir(addEndingSlash(DIR_CONFIGS_ROOT) . $usersConfigDir)) {
+        $loggedInUser = $App->Session->getVar('loggedInUser');
+        $userConfigFile = addEndingSlash(DIR_CONFIGS_ROOT) .  addEndingSlash($usersConfigDir) . "$loggedInUser.inc.php";
+        if (is_file($userConfigFile)) {
+            $userConfig =  require $userConfigFile;
+
+            if (is_array($userConfig)) {
+                $config = array_merge($config, $userConfig);
+            }
+        }
+    }
+}
+
+# set config
+$App->setConfig($config);
 
 $settings = [
     'application.name'          => APPLICATION_NAME,
@@ -74,6 +98,7 @@ $memcachedServers = getenv('filemigo_memcached');
 if ($memcachedServers) {
     $settings['memcached.servers'] = $memcachedServers;
 }
+
 try {
     $App->setup($settings);
     $App->render();
