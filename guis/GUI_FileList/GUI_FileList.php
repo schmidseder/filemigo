@@ -324,7 +324,7 @@ class GUI_FileList extends GUI_Module
             $size = number_format($bytes / 1024, $decimals, $decimal_separator, $thousands_separator);
             return "$size KB";
         } else {
-            return "$bytes Bytes";
+            return "$bytes B";
         }
     }
 
