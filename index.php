@@ -30,6 +30,7 @@ use filemigo\guis\GUI_Login\GUI_Login;
 //    }
 
 const APPLICATION_NAME = 'filemigo';
+const APPLICATION_DIR = __DIR__;
 const DIR_CONFIGS_ROOT = __DIR__ . '/config';
 
 require_once DIR_CONFIGS_ROOT . '/config.inc.php';

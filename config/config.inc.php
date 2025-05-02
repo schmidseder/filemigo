@@ -39,6 +39,7 @@ define('POOL_START', microtime(true));
 require_once 'Stage.php';
 
 use filemigo\config\Stage;
+use const filemigo\APPLICATION_DIR;
 
 /**
  * -------------------------------
@@ -144,4 +145,4 @@ const IS_TESTSERVER = (IS_DEVELOP || IS_STAGING);
  */
 const DIR_DATA_ROOT = DIR_DOCUMENT_ROOT . '/data';
 const DIR_RELATIVE_DATA_ROOT = DIR_RELATIVE_DOCUMENT_ROOT . '/data';
-const DIR_RESOURCES_ROOT = DIR_DOCUMENT_ROOT . '/resources';
+const DIR_RESOURCES_ROOT = APPLICATION_DIR . '/resources';
