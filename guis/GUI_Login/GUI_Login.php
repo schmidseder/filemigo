@@ -101,8 +101,8 @@ class GUI_Login extends GUI_CustomFrame
                         $this->Session->setVar('loggedInUser', $user);
 
                         /** @var GUI_ZipFolder $GUI_ZipFolder */
-                        // $GUI_ZipFolder = GUI_Module::createGUIModule(GUI_ZipFolder::class, $this->Weblication, $this);
-                        // $GUI_ZipFolder->cleanUpZipFiles();
+                        $GUI_ZipFolder = GUI_Module::createGUIModule(GUI_ZipFolder::class, $this->Weblication, $this);
+                        $GUI_ZipFolder->cleanUpZipFiles();
                     }
                 }
                 // reload page
