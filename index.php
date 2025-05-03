@@ -32,6 +32,7 @@ use filemigo\guis\GUI_Login\GUI_Login;
 const APPLICATION_NAME = 'filemigo';
 const APPLICATION_DIR = __DIR__;
 
+/*
 if (!getenv('_RelativeRoot') ) {
     putenv('_RelativeRoot=..');
 }
@@ -39,6 +40,7 @@ if (!getenv('_RelativeRoot') ) {
 if (!getenv('_SQL_Host') ) {
     putenv('_SQL_Host=localhost');
 }
+*/
 
 const DIR_CONFIGS_ROOT = __DIR__ . '/config';
 
