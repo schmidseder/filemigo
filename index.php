@@ -40,6 +40,7 @@ if (!file_exists(DIR_CONFIGS_ROOT . '/filemigo.inc.php')) {
     die ('Please rename `config/example-filemigo.inc.php` to `config/filemigo.inc.php` and adjust the configurations within it.');
 }
 
+# set default values for environment variables
 if (!getenv('filemigo_data') ) {
     $data = realpath(DIR_DOCUMENT_ROOT . '/../data');
     if ($data) {
@@ -51,6 +52,12 @@ if (!getenv('filemigo_zip') ) {
     if ($tmp) {
         putenv('filemigo_zip=' . $tmp);
     }
+}
+if (!getenv('_RelativeRoot') ) {
+    putenv('_RelativeRoot="../"');
+}
+if (!getenv('_SQL_Host') ) {
+    putenv('_SQL_Host="localhost"');
 }
 
 FilemigoApp::caching(IS_PRODUCTION);
