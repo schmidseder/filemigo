@@ -21,7 +21,11 @@ Download POOL:
 Unzip both archives and rename the directories.
 
 Rename the directory `filemigo-main` to `filemigo`.  
-Rename the directory `pool-develop` to `pool` .  
+Rename the directory `pool-develop` to `pool`.
+
+A file named `example-filemigo.inc.php` is located in the config subdirectory of the `filemigo` directory (`filemigo/config`).
+To enable the configuration, rename the file to `filemigo.inc.php`.
+
 
 Upload both directories with all files to the public document root directory of your webspace.  
 Here in the example it is the directory named `public`
@@ -38,8 +42,6 @@ The `tmp` directory is used to temporarily hold generated ZIP archives.
 ├── data              # Data directory (not publicly accessible)                 
 └── tmp               # Temp directory (not publicly accessible)  
 ```
-A file named `example-filemigo.inc.php` is located in the config subdirectory of the Filemigo application (`filemigo/config`).
-To enable the configuration, rename the file to `filemigo.inc.php`.
 
 Use the user `filemigo` with the password `filemigo` for the first login.  
 After you have logged in, generate password hashes for new users, which you copy into the configuration file `filemigo.inc.php`.
