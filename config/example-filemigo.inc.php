@@ -10,6 +10,7 @@ return [
 
         /* ************************************************************************************** */
     ],
+    'FMG_APP_NAME'    => 'filemigo',
     'FMG_TITLE'       => 'Filemigo',
     'FMG_HEADER'      => 'Filemigo - Web File Browser',
     'FMG_FOOTER'      => 'schmidseder.net',

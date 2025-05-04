@@ -103,10 +103,11 @@ if ($loggedIn) {
 $App->setConfig($config);
 
 $settings = [
-    'application.name'          => APPLICATION_NAME,
-    'application.title'         => $App->getConfigValue('FMG_TITLE','Unkwown'),
+    'application.name'          => $App->getConfigValue('FMG_APP_NAME', APPLICATION_NAME),
+    'application.title'         => $App->getConfigValue('FMG_TITLE',APPLICATION_NAME),
     'application.launchModule'  => $launchModule,
     // 'memcached.servers' => 'memcached:11211'
+    // 'memcached.ttl' => 1
 ];
 
 $memcachedServers = getenv('filemigo_memcached');
