@@ -12,6 +12,9 @@ Filemigo will work out of the box - it's built with PHP and designed for easy de
 - For security reasons, Filemigo only works via HTTPS
 
 ### Manual Installation on Webspace
+
+![Installation Demo](https://demo.schmidseder.net/filemigo-demo-animation.apng)
+
 Download Filemigo:  
 [`https://github.com/schmidseder/filemigo/archive/refs/heads/main.zip`](https://github.com/schmidseder/filemigo/archive/refs/heads/main.zip)
 
