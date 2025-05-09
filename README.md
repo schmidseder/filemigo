@@ -52,6 +52,8 @@ After you have logged in, generate password hashes for new users, which you copy
 
 You must then remove the user filemigo from the file for security reasons.
 
+Save the files that should be available in Filemigo in the `data` directory.
+
 ## Technologies
 - Frontend: PicoCSS, Vanilla JavaScript
 - Backend: PHP POOL Framework
