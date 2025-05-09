@@ -6,6 +6,9 @@ It allows you to securely share your files (read-only) with friends or selected 
 If you already have a website hosted by a typical web hosting provider, chances are high that
 Filemigo will work out of the box - it's built with PHP and designed for easy deployment.
 
+## Demo
+    // Todo
+
 ## Installation
 ### Requirements
 - **PHP Version:** PHP 8.3 or higher
@@ -54,9 +57,12 @@ You must then remove the user filemigo from the file for security reasons.
 
 Save the files that should be available in Filemigo in the `data` directory.
 
+## Configuration
+    // todo
+
 ## Technologies
 - Frontend: PicoCSS, Vanilla JavaScript
 - Backend: PHP POOL Framework
 
-## License
-[GPLv3](LICENSE)
+## Copyright and license
+Licensed under the [MIT License](LICENSE)
