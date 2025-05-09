@@ -8,7 +8,8 @@ Filemigo will work out of the box - it's built with PHP and designed for easy de
 
 ## Installation
 ### Requirements
-- PHP 8.3
+- **PHP Version:** PHP 8.3 or higher
+- **Optional Extension:** Memcached for enhanced caching performance is optional
 - For security reasons, Filemigo only works via HTTPS
 
 ### Manual Installation on Webspace
