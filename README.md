@@ -7,7 +7,11 @@ If you already have a website hosted by a typical web hosting provider, chances 
 Filemigo will work out of the box - it's built with PHP and designed for easy deployment.
 
 ## Demo
-    // Todo
+
+Host: [https://demo.schmidseder.net](https://demo.schmidseder.net)  
+
+    User: rosi
+    Password: griasde-rosi
 
 ## Installation
 ### Requirements
@@ -56,9 +60,6 @@ After you have logged in, generate password hashes for new users, which you copy
 You must then remove the user filemigo from the file for security reasons.
 
 Save the files that should be available in Filemigo in the `data` directory.
-
-## Configuration
-    // todo
 
 ## Technologies
 - Frontend: PicoCSS, Vanilla JavaScript
