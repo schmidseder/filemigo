@@ -13,27 +13,27 @@
 <main class="container" id="{name}">
     <section class="login-form">
         <form method="post" action="[GUI_Url]">
-            <label for="user">Benutzername</label>
+            <label for="user">{username}</label>
             <input
                     type="text"
                     id="user"
                     name="user"
-                    placeholder="Ihr Benutzername"
+                    placeholder="{placeholder-username}"
                     autocomplete="username"
                     required
             >
 
-            <label for="password">Passwort</label>
+            <label for="password">{password}</label>
             <input
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="Ihr Passwort"
+                    placeholder="{placeholder-password}"
                     autocomplete="current-password"
                     required
             >
 
-            <button type="submit">Anmelden</button>
+            <button type="submit">{label-login}</button>
         </form>
     </section>
 </main>

@@ -135,10 +135,12 @@ class GUI_FileList extends GUI_Module
 //        $translator->swapLangList('de_DE');
 //        echo $translator->getTranslation('filesize');
 
+        $myTranslations = [];
         $translationKeys = ['filename', 'filesize', 'filetype', 'lastModification'];
         foreach ($translationKeys as $key) {
-            $this->Template->setVar($key, $translator->getTranslation($key));
+            $myTranslations[$key] = $translator->getTranslation($key);
         }
+        $this->Template->setVars($myTranslations);
 
         $index = $this->Session->getVar('index');
         $path = $this->Input->getVar('path');
@@ -279,6 +281,7 @@ class GUI_FileList extends GUI_Module
 
         foreach ($fileList as $fileRecord) {
             $this->Template->newBlock('cardFile');
+            $this->Template->setVars($myTranslations);
             $this->Template->setVars($fileRecord);
         }
     }
