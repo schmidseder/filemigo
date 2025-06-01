@@ -1,0 +1,19 @@
+<IfModule mod_headers.c>
+    # 1️ X-Frame-Options: Schutz gegen Clickjacking
+    Header always set X-Frame-Options "DENY"
+
+    # 2️ X-Content-Type-Options: Verhindert MIME-Sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # 3️ Strict-Transport-Security (HSTS): Erzwingt HTTPS
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # 4️ Referrer-Policy: Kontrolliert das Senden des Referer-Headers
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # 5️ Permissions-Policy: Deaktiviert unnötige Browser-APIs
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+    # 6️ Content-Security-Policy (CSP): Blockiert Inline-JavaScript & unsichere Inhalte
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self';"
+</IfModule>

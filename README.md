@@ -61,6 +61,9 @@ You must then remove the user filemigo from the file for security reasons.
 
 Save the files that should be available in Filemigo in the `data` directory.
 
+## Security
+In an Appache environment, you can rename the `example.htaccess` to `.htaccess` for more security.
+
 ## Technologies
 - Frontend: PicoCSS, Vanilla JavaScript
 - Backend: PHP POOL Framework
