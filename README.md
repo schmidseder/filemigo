@@ -15,7 +15,7 @@ Host: [https://demo.schmidseder.net](https://demo.schmidseder.net)
 
 ## Installation
 ### Requirements
-- **PHP Version:** PHP 8.3 or higher
+- **PHP Version:** PHP 8.4 or higher
 - **Optional Extension:** Memcached for enhanced caching performance is optional
 - For security reasons, Filemigo only works via HTTPS
 
