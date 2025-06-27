@@ -61,17 +61,18 @@
         <!-- END isSubDirectory -->
 
         <!-- BLOCK cardFile -->
-        <article class="card">
-            <span class="mittig">
-                <span class="material-symbols-outlined" style="color:{color}">{type_name}</span>
-                <a href="{url}" class="mittig">{filename}</a>
-            </span>
+        <a href="{url}" class="card-link">
+            <article class="card">
+                <span class="mittig">
+                    <span class="material-symbols-outlined" style="color:{color}">{type_name}</span>
+                    <span class="mittig">{filename}</span>
+                </span>
 
-            <strong class="card-label">{filetype}:</strong> {type}<br>
-            <strong class="card-label">{lastModification}:</strong>{last_modified}<br>
-<!--            <strong class="card-label">Letzter Zugriff:</strong>{last_access}<br>-->
-
-        </article>
+                <strong class="card-label">{filetype}:</strong> {type}<br>
+                <strong class="card-label">{lastModification}:</strong>{last_modified}<br>
+                <!--        <strong class="card-label">Letzter Zugriff:</strong>{last_access}<br>-->
+            </article>
+        </a>
         <!-- END cardFile -->
     </div>
 
