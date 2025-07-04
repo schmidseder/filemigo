@@ -52,12 +52,6 @@ class GUI_Login extends GUI_CustomFrame
 
     public function prepare(): void
     {
-        $translator = $this->Weblication->getTranslator();
-        $translationKeys = ['username', 'password', 'placeholder-username', 'placeholder-password', 'label-login'];
-        foreach ($translationKeys as $key) {
-            $this->Template->setVar($key, $translator->getTranslation($key));
-        }
-
         // csrf token for more security
         $tokenExists = $this->Session->exists('csrf_token');
         if (!$tokenExists) {

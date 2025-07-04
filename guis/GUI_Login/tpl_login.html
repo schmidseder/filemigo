@@ -13,27 +13,27 @@
 <main class="container" id="{name}">
     <section class="login-form">
         <form method="post" action="[GUI_Url]">
-            <label for="user">{username}</label>
+            <label for="user">{TRANSL username}</label>
             <input
                     type="text"
                     id="user"
                     name="user"
-                    placeholder="{placeholder-username}"
+                    placeholder="{TRANSL placeholder-username}"
                     autocomplete="username"
                     required
             >
 
-            <label for="password">{password}</label>
+            <label for="password">{TRANSL password}</label>
             <input
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="{placeholder-password}"
+                    placeholder="{TRANSL placeholder-password}"
                     autocomplete="current-password"
                     required
             >
 
-            <button type="submit">{label-login}</button>
+            <button type="submit">{TRANSL label-login}</button>
         </form>
     </section>
 </main>
