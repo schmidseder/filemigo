@@ -59,6 +59,7 @@ class GUI_PictureBox extends GUI_Module
 
         $this->setClientVar('notFound', /*!$this->isValidPath($this->filePath) ||*/ !file_exists($this->filePath));
         $this->setClientVar('src', $this->src);
+        $this->setClientVar('filename', basename($this->filePath));
         $this->setClientVar('frameHeight', $this->getVar('frameHeight'));
         $this->setClientVar('index', $this->getVar('index'));
     }
@@ -67,6 +68,49 @@ class GUI_PictureBox extends GUI_Module
     {
         $pathPattern = '/^[^\/]+(\/[^\/]+)*$/';
         return preg_match($pathPattern, $path) === 1;
+    }
+
+    /**
+     * Todo
+     *
+     * @param $srcPath
+     * @param $destPath
+     * @param $maxWidth
+     * @param $quality
+     * @return bool
+     */
+    private function resizeImage($srcPath, $destPath, $maxWidth = 1200, $quality = 80) : bool
+    {
+        $info = getimagesize($srcPath);
+        [$width, $height] = $info;
+        $mime = $info['mime'];
+
+        switch ($mime) {
+            case 'image/jpeg':
+                $srcImage = imagecreatefromjpeg($srcPath);
+                break;
+            case 'image/png':
+                $srcImage = imagecreatefrompng($srcPath);
+                break;
+            case 'image/webp':
+                $srcImage = imagecreatefromwebp($srcPath);
+                break;
+            default:
+                return false;
+        }
+
+        $ratio = $width / $height;
+        $newWidth = $maxWidth;
+        $newHeight = $maxWidth / $ratio;
+
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newImage, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+        imagewebp($newImage, $destPath, $quality);
+
+        imagedestroy($srcImage);
+        imagedestroy($newImage);
+        return true;
     }
 
     /**

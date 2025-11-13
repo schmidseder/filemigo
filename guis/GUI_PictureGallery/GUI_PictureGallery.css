@@ -21,6 +21,7 @@ section.picture-gallery > div.overlay {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
 }
 
 section.picture-gallery > div.overlay > img {
@@ -38,6 +39,7 @@ section.picture-gallery > span.close-btn {
     right: 15px;
     font-size: 30px;
     cursor: pointer;
+    z-index:9999;
 }
 
 section.picture-gallery > div.overlay > div.arrow {

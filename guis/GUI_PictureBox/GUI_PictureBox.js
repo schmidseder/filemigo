@@ -67,6 +67,11 @@ class GUI_PictureBox extends GUI_Module
             this.rootElement.style.width = `${image.width + 20}px`;
             this.rootElement.style.height =`${image.height + 25}px`;
             this.rootElement.appendChild(image);
+
+            const label = document.createElement('div');
+            label.className = 'filename';
+            label.textContent = this.options.filename;
+            this.rootElement.appendChild(label);
         };
     }
 

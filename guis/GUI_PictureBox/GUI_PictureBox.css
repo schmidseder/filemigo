@@ -1,4 +1,6 @@
 .picture-box {
+    position: relative; /* Damit das Overlay sich am Bild orientiert */
+    overflow: hidden;   /* Verhindert, dass das Label übersteht */
     width: 300px;
     height: 200px;
     background-color: white;
@@ -16,6 +18,26 @@
 
     transition: transform 0.2s ease-out;
 }
+
+.picture-box .filename {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    font-size: 13px;
+    padding: 4px;
+    margin: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.picture-box:hover .filename {
+    opacity: 1;
+}
+
 
 .picture-box.hover-effect {
     transform: scale(1.1);
