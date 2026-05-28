@@ -40,8 +40,35 @@ class GUI_Logout extends GUI_Module
         if (options.monitorInactivity) {
             this.resetTimer();
             const events = ["mousemove", "keypress", "scroll", "click"];
-            events.forEach(event => document.addEventListener(event, this.resetTimer, true));  // useCapture = true
+
+            // throttled version: fire resetTimer only once every second
+            const throttledReset = this.throttle(this.resetTimer, 1000);
+
+            events.forEach(event => document.addEventListener(event, throttledReset, true));  // useCapture = true
         }
+    }
+
+    /**
+     * Throttle helper
+     */
+    throttle(fn, limit)
+    {
+        let waiting = false;
+
+        return (...args) =>
+        {
+            if (!waiting)
+            {
+                fn.apply(this, args);
+
+                waiting = true;
+
+                setTimeout(() =>
+                {
+                    waiting = false;
+                }, limit);
+            }
+        };
     }
 
     resetTimer = () =>
